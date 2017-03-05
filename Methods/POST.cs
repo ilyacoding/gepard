@@ -4,15 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gepard
+namespace Gepard.Methods
 {
-    class Response
+    class POST
     {
-        private int AnswerCode { get; set; }
-
-        public Response()
-        {
-
-        }
     }
 }
