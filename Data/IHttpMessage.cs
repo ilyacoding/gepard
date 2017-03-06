@@ -6,19 +6,9 @@ using System.Threading.Tasks;
 
 namespace Gepard.Data
 {
-    class StartingLine
+    public interface IHttpMessage
     {
-    }
-
-    class Headers
-    {
-    }
-
-    class MessageBody
-    {
-    }
-
-    class HttpMessage
-    {
+        string Connection { get; set; }
+        string Content { get; set; }
     }
 }

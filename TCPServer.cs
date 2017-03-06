@@ -7,6 +7,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
+using Gepard.Data;
+
 namespace Gepard
 {
     class TCPServer
@@ -52,38 +54,38 @@ namespace Gepard
             {
                 try
                 {
-                    byte[] bytes = new Byte[1024];
-                    string data;
-
-                    int bytesRec = handler.Receive(bytes);
-                    data = Encoding.UTF8.GetString(bytes, 0, bytesRec);
-
-                    //char[] array = data.ToCharArray();
-                    //Array.Reverse(array);
-                    //data = new string(array);
-
-                    //byte[] msg = Encoding.UTF8.GetBytes(data);
+                    var data = ReceiveString(handler);
+                    new ClientHttpMessage(data);
 
                     string Html = "<html><body><h1>It works!</h1></body></html>";
-                    string Str = "HTTP/1.1 200 OK\nContent-type: text/html\nContent-Length:" + Html.Length.ToString() + "\n\n" + Html;
+                    string Str = "HTTP/1.1 200 OK\nContent-type: text/html\nContent-Length:" + (Html.Length+data.Length).ToString() + "\n\n" + Html + data;
                     byte[] msg = Encoding.ASCII.GetBytes(Str);
 
                     handler.Send(msg);
-                    handler.Close();
-                    break;
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Client disconnected.");
+                    Console.WriteLine(e.ToString());
                     break;
                 }
             }
         }
-
-        public void Send(string Message)
+        
+        public string ReceiveString(Socket socket)
         {
-            if (sock.Connected)
-                sock.Send(Encoding.UTF8.GetBytes(Message));
+            byte[] bytes = new Byte[256];
+            string data = "";
+            int bytesReceived;
+
+            do
+            {
+                bytesReceived = socket.Receive(bytes, 0, bytes.Length, SocketFlags.None);
+                data += Encoding.UTF8.GetString(bytes, 0, bytesReceived);
+                //Console.WriteLine(data);
+            }
+            while (socket.Available > 0);
+
+            return data;
         }
 
         private IPAddress GetLocalIP()

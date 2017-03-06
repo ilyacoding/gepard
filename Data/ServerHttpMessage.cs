@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Gepard.Data
 {
-    public class Response
-    {
-
-    }
+    //class ServerHttpMessage : IHttpMessage
+    //{
+    //}
 }

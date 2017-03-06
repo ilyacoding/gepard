@@ -43,9 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\ClientHttpMessage.cs" />
+    <Compile Include="Data\IHttpMessage.cs" />
+    <Compile Include="Data\ServerHttpMessage.cs" />
     <Compile Include="Methods\GET.cs" />
     <Compile Include="Methods\POST.cs" />
-    <Compile Include="Data\Request.cs" />
     <Compile Include="Data\Response.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
