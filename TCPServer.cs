@@ -57,7 +57,7 @@ namespace Gepard
                     var data = ReceiveString(handler);
                     new ClientHttpMessage(data);
 
-                    string Html = "<html><body><h1>It works!</h1></body></html>";
+                    string Html = "";
                     string Str = "HTTP/1.1 200 OK\nContent-type: text/html\nContent-Length:" + (Html.Length+data.Length).ToString() + "\n\n" + Html + data;
                     byte[] msg = Encoding.ASCII.GetBytes(Str);
 
@@ -81,7 +81,6 @@ namespace Gepard
             {
                 bytesReceived = socket.Receive(bytes, 0, bytes.Length, SocketFlags.None);
                 data += Encoding.UTF8.GetString(bytes, 0, bytesReceived);
-                //Console.WriteLine(data);
             }
             while (socket.Available > 0);
 

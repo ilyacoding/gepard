@@ -8,7 +8,6 @@ namespace Gepard.Data
 {
     public interface IHttpMessage
     {
-        string Connection { get; set; }
-        string Content { get; set; }
+        Dictionary<string, string> fields { get; set; }
     }
 }

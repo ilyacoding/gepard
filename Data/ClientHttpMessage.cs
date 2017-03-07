@@ -13,16 +13,6 @@ namespace Gepard.Data
         public string HttpVersion { get; private set; }
 
         public Dictionary<string, string> fields { get; set; }
-
-        public string Host { get; private set; }
-        public string UserAgent { get; private set; }
-        public string Accept { get; private set; }
-        public string AcceptLanguage { get; private set; }
-        public string AcceptEncoding { get; private set; }
-        public string Connection { get; set; }
-        public string CacheControl { get; private set; }
-
-        public string Content { get; set; }
        
         public ClientHttpMessage(string data)
         {
@@ -52,11 +42,6 @@ namespace Gepard.Data
             {
                 Console.WriteLine(fields["User-Agent"]);
             }
-        }
-
-        public override string ToString()
-        {
-            return "";
         }
     }
 }

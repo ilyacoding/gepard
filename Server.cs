@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.Configuration;
 
 namespace Gepard
 {
@@ -21,7 +22,7 @@ namespace Gepard
 
         static void Main(string[] args)
         {
-            new Server(IPAddress.Parse("127.0.0.1"), 8000);
+            new Server(IPAddress.Parse(ConfigurationSettings.AppSettings["ServerIP"]), Convert.ToInt16(ConfigurationSettings.AppSettings["ServerPort"]));
         }
     }
 }
