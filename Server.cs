@@ -10,19 +10,26 @@ using System.Configuration;
 
 namespace Gepard
 {
-    class Server
+    internal class Server
     {
-        private TCPServer serv { get; set; }
+        private HttpServer serv { get; set; }
 
-        public Server(IPAddress ip, int port)
+        public Server(int port)
         {
-            serv = new TCPServer(ip, port);
-            serv.StartAccepting();
+            serv = new HttpServer(port);
         }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            new Server(IPAddress.Parse(ConfigurationSettings.AppSettings["ServerIP"]), Convert.ToInt16(ConfigurationSettings.AppSettings["ServerPort"]));
+            //ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
+            //configMap.ExeConfigFilename = @"d:\test\justAConfigFile.config.whateverYouLikeExtension";
+            //Configuration config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+
+//            var HttpConfig = new VirtualHostHttpConfig(@"D:\Crypto\GitHub\gepard\bin\Debug\http.config");
+
+//            Console.WriteLine(HttpConfig.VirtualHosts[0].Fields.ToString());
+
+            new Server(8000);
         }
     }
 }
