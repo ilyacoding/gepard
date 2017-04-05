@@ -51,6 +51,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,15 +60,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application.cs" />
+    <Compile Include="Configuration\ConfigSerializer.cs" />
+    <Compile Include="Configuration\Server\ServerConfig.cs" />
+    <Compile Include="Configuration\Server\ServerConfigHandler.cs" />
+    <Compile Include="Configuration\Server\ServerConfigSerializer.cs" />
+    <Compile Include="Configuration\VirtualHost\VirtualHostConfigHandler.cs" />
+    <Compile Include="Configuration\VirtualHost\VirtualHostConfigSerializer.cs" />
+    <Compile Include="Configuration\VirtualHost\VirtualHostList.cs" />
     <Compile Include="Data\ClientHttpMessage.cs" />
     <Compile Include="Data\IHttpMessage.cs" />
-    <Compile Include="VirtualHostHttpConfig.cs" />
+    <Compile Include="HttpProcessor.cs" />
+    <Compile Include="Configuration\Config.cs" />
     <Compile Include="Methods\GET.cs" />
     <Compile Include="Methods\POST.cs" />
-    <Compile Include="Server.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HttpServer.cs" />
-    <Compile Include="VirtualHost.cs" />
+    <Compile Include="Configuration\VirtualHost\VirtualHost.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -84,6 +94,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

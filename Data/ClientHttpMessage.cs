@@ -17,13 +17,13 @@ namespace Gepard.Data
         public ClientHttpMessage(string data)
         {
             fields = new Dictionary<string, string>();
-            List<string> parts = data.Split(new char[] { '\n' }).ToList();
-            var StartingLine = parts[0].Split(' ');
+            var parts = data.Split(new char[] { '\n' }).ToList();
+            var startingLine = parts[0].Split(' ');
             parts.RemoveAt(0);
 
-            Method = StartingLine[0];
-            URI = StartingLine[1];
-            HttpVersion = StartingLine[2];
+            Method = startingLine[0];
+            URI = startingLine[1];
+            HttpVersion = startingLine[2];
 
             foreach(var p in parts)
             {

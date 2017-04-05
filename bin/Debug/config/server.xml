@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<ServerConfiguration>
+  <Ip>127.0.0.1</Ip>
+  <Port>8000</Port>
+  <DirectoryRoot>D:\Crypto\GitHub\gepard\bin\Debug\www</DirectoryRoot>
+  <ErrorLog>error.log</ErrorLog>
+</ServerConfiguration>

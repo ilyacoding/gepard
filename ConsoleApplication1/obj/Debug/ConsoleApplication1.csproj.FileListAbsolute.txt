@@ -1,6 +1,0 @@
-D:\Crypto\GitHub\gepard\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
-D:\Crypto\GitHub\gepard\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
-D:\Crypto\GitHub\gepard\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
-D:\Crypto\GitHub\gepard\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
-D:\Crypto\GitHub\gepard\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
-D:\Crypto\GitHub\gepard\ConsoleApplication1\obj\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache

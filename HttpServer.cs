@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-
+using Gepard.Configuration.Server;
+using Gepard.Configuration.VirtualHost;
 using Gepard.Data;
 
 namespace Gepard
@@ -16,9 +17,9 @@ namespace Gepard
         private TcpListener Server { get; }
         private Thread Tasker { get; set; }
 
-        public HttpServer(int port)
+        public HttpServer(ServerConfig serverConfig, VirtualHostList virtualHostList)
         {
-            Server = new TcpListener(GetLocalIp(), port);
+            Server = new TcpListener(GetLocalIp(), serverConfig.Port);
             Server.Start();
             Console.WriteLine(Server.LocalEndpoint);
             StartAccepting();
@@ -57,6 +58,7 @@ namespace Gepard
 
                     var html = request;
                     var str = "HTTP/1.1 200 OK\nContent-type: text/html\nContent-Length:" + html.Length.ToString() + "\n\n" + html;
+                    
                     Send(client.GetStream(), str);
                 }
                 catch (Exception e)
