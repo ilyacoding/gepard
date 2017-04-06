@@ -18,7 +18,6 @@ namespace Gepard
         private static void Main(string[] args)
         {
             new Application(args, "config", new ServerConfigSerializer(), new VirtualHostConfigSerializer());
-            Console.ReadKey();
         }
     }
 }
