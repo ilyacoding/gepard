@@ -12,10 +12,10 @@ namespace Gepard
     public class Response
     {
         public string Status { get; set; }
-        public string Data { get; set; }
+        public byte[] Data { get; set; }
         public string Mime { get; set; }
 
-        public Response(string status, string data, string mime)
+        public Response(string status, byte[] data, string mime)
         {
             Status = status;
             Data = data;
@@ -24,9 +24,13 @@ namespace Gepard
 
         public void Post(NetworkStream stream)
         {
-            var data = $"{TcpServer.HttpVersion} {Status}\r\nContent-type: {Mime}\r\nContent-Length: {Data.Length}\r\n\r\n{Data}";
-
+            var data = $"{TcpServer.HttpVersion} {Status}\r\nContent-type: {Mime}\r\nAccept-Ranges: bytes\r\nContent-Length: {Data.Length}\r\n\r\n";
             var dataBytes = Encoding.UTF8.GetBytes(data);
+
+            stream.Write(dataBytes, 0, dataBytes.Length);
+            stream.Write(Data, 0, Data.Length);
+//
+//            var dataBytes = Encoding.UTF8.GetBytes(data);
 
 //            var streamWriter = new StreamWriter(stream);
 //            streamWriter.WriteLine(string.Format("{0} {1}\r\nContent-type: {2}\r\nAccept-Ranges: bytes\r\nContent-Length: {3}\r\n", TcpServer.HttpVersion, Status, Mime, 20));
@@ -68,13 +72,13 @@ namespace Gepard
 
         public static Response MakeFromFile(string filePath)
         {
-            var data = File.ReadAllText(filePath);
-            return new Response(ResponseStatus.Get(200), data, "text");
+            var data = File.ReadAllBytes(filePath);
+            return new Response(ResponseStatus.Get(200), data, "image");
         }
 
         public static Response MakeErrorFromFile(int errorCode)
         {
-            var data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "pages", "error.html"));
+            var data = File.ReadAllBytes(Path.Combine(Environment.CurrentDirectory, "pages", "error.html"));
             return new Response(ResponseStatus.Get(200), data, "text");
             //            var data = File.ReadAllBytes(filePath);
             //            return new Response(ResponseStatus.Get(200), data, "html/text");
