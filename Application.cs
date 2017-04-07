@@ -14,7 +14,7 @@ namespace Gepard
     public class Application
     {
         public string ExecutionPath { get; set; }
-        public TcpServer TcpServer { get; set; }
+        public HttpServer TcpServer { get; set; }
 
         public ServerConfig ServerConfig { get; set; }
         public VirtualHostList VirtualHostList { get; set; }
@@ -49,7 +49,7 @@ namespace Gepard
                 return;
             }
 
-            TcpServer = new TcpServer(ServerConfig, VirtualHostList);
+            TcpServer = new HttpServer(ServerConfig, VirtualHostList);
             TcpServer.Start();
             Console.ReadKey();
             TcpServer.Stop();

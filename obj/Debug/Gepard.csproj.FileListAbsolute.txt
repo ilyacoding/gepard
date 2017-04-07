@@ -9,3 +9,4 @@ D:\Crypto\GitHub\gepard\obj\Debug\Gepard.exe
 D:\Crypto\GitHub\gepard\obj\Debug\Gepard.pdb
 D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
 D:\Crypto\GitHub\gepard\bin\Debug\Gepard.pdb
+D:\Crypto\GitHub\gepard\obj\Debug\Gepard.csprojResolveAssemblyReference.cache
