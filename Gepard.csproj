@@ -68,6 +68,7 @@
     <Compile Include="Configuration\VirtualHost\VirtualHostConfigSerializer.cs" />
     <Compile Include="Configuration\VirtualHost\VirtualHostList.cs" />
     <Compile Include="HttpProcessor.cs" />
+    <Compile Include="MimeType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request.cs" />

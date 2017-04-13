@@ -63,18 +63,20 @@ namespace Gepard
                 try
                 {
                     var strRequest = Receive(stream);
-                    var response = HttpProcessor.GetResponse(strRequest);
+                    var request = Request.Parse(strRequest);
+
+                    var response = HttpProcessor.GetResponse(request, VirtualHostList.GetVirtualHost(request.Host));
                     HttpProcessor.PushTo(stream, response);
 
-                    Console.WriteLine("Client " + client.Client.RemoteEndPoint + " disconnected.");
+//                    Console.WriteLine("Client " + client.Client.RemoteEndPoint + " disconnected.");
                     client.Close();
                     break;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    Console.WriteLine("Client " + client.Client.RemoteEndPoint + " disconnected.");
-                    client.Close();
-//                    Console.WriteLine(e.ToString());
+//                    Console.WriteLine("Client " + client.Client.RemoteEndPoint + " disconnected.");
+//                    client.Close();
+                    Console.WriteLine(e.ToString());
                     break;
                 }
             }
@@ -100,17 +102,17 @@ namespace Gepard
             stream.Write(buffer, 0, buffer.Length);
         }
 
-        private static IPAddress GetLocalIp()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    return ip;
-                }
-            }
-            throw new Exception("Local IP Address Not Found!");
-        }
+//        private static IPAddress GetLocalIp()
+//        {
+//            var host = Dns.GetHostEntry(Dns.GetHostName());
+//            foreach (var ip in host.AddressList)
+//            {
+//                if (ip.AddressFamily == AddressFamily.InterNetwork)
+//                {
+//                    return ip;
+//                }
+//            }
+//            throw new Exception("Local IP Address Not Found!");
+//        }
     }
 }

@@ -11,10 +11,19 @@ namespace Gepard.Configuration.VirtualHost
     [XmlRoot("VirtualHost")]
     public class VirtualHost
     {
+        [XmlElement("ServerName")]
         public string ServerName { get; set; }
+
+        [XmlElement("ServerAlias")]
         public string ServerAlias { get; set; }
+
+        [XmlElement("Directory")]
         public string Directory { get; set; }
+
+        [XmlElement("ErrorLog")]
         public string ErrorLog { get; set; }
+
+        [XmlElement("CustomLog")]
         public string CustomLog { get; set; }
     }
 }

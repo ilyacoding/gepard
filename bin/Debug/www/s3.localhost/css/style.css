@@ -6,7 +6,7 @@ h2 {
     color: #FFE956;
 }
 .header-main {
-    background: url('/template/img/header.jpg') no-repeat;
+    background: url('/img/header.jpg') no-repeat;
     background-size: cover;
     margin-bottom: 30px;
     border-radius: 10px;

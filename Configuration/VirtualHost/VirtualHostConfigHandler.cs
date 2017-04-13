@@ -21,5 +21,11 @@ namespace Gepard.Configuration.VirtualHost
             var fileContent = File.ReadAllText(filePath);
             return VirtualHostConfigSerializer.Deserialize(fileContent);
         }
+
+//        public void SaveToFile(VirtualHostList virtualHost)
+//        {
+//            var x = VirtualHostConfigSerializer.Serialize(virtualHost);
+//            File.WriteAllText("v1.xml", x);
+//        }
     }
 }

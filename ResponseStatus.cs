@@ -16,7 +16,7 @@ namespace Gepard
             { 404, "Not found" },
             { 405, "Method not allowed" },
             { 415, "Unsupported media type" },
-//            { 434, "Requested host unavailable" },
+            { 434, "Requested host unavailable" },
             { 500, "Internal Server Error" }
         };
         public static string Get(int code) => CodeDictionary.ContainsKey(code) ? $"{code} {CodeDictionary[code]}" : $"{CodeDictionary.First().Key} {CodeDictionary.First().Value}";

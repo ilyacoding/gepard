@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Gepard.Configuration.VirtualHost;
 
 namespace Gepard
 {
@@ -11,6 +12,7 @@ namespace Gepard
         public string HttpVersion { get; set; }
         public string Host { get; set; }
         public string Connection { get; set; }
+        public VirtualHost VirtualHost { get; set; }
         
         public Dictionary<string, string> Fields { get; set; }
 
@@ -29,7 +31,7 @@ namespace Gepard
 
             if (fields.ContainsKey("Host"))
             {
-                Host = fields["Host"];
+                Host = fields["Host"].Split(':')[0];
             }
         }
 

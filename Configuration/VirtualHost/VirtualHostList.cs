@@ -11,16 +11,34 @@ namespace Gepard.Configuration.VirtualHost
     [XmlRoot("VirtualHostsConfiguration")]
     public class VirtualHostList
     {
-        private List<VirtualHost> VirtualHosts { get; }
+        [XmlArray("VirtualHosts")]
+        public List<VirtualHost> VirtualHosts { get; }
 
-        public bool HasVirtualHostHost(string host)
+        [XmlElement("DefaultVirtualHost")]
+        public VirtualHost DefaultVirtualHost { get; set; }
+
+        public VirtualHostList()
         {
-            return VirtualHosts.Any(element => element.ServerName == host || element.ServerAlias == host);
+            VirtualHosts = new List<VirtualHost>();
+            DefaultVirtualHost = new VirtualHost();
         }
+
+//        public bool HasVirtualHost(string host)
+//        {
+//            return VirtualHosts.Any(element => element.ServerName == host || element.ServerAlias == host);
+//        }
 
         public VirtualHost GetVirtualHost(string host)
         {
-            return VirtualHosts.Find(virtualhost => virtualhost.ServerName == host || virtualhost.ServerAlias == host);
+            foreach (var virtualHost in VirtualHosts)
+            {
+                if (virtualHost.ServerName == host || virtualHost.ServerAlias == host)
+                {
+                    return virtualHost;
+                }
+            }
+            return DefaultVirtualHost;
+//            return VirtualHosts.Find(virtualhost => virtualhost.ServerName == host || virtualhost.ServerAlias == host);
         }
     }
 }
