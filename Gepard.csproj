@@ -75,9 +75,12 @@
     <Compile Include="ResponseStatus.cs" />
     <Compile Include="HttpServer.cs" />
     <Compile Include="Configuration\VirtualHost\VirtualHost.cs" />
+    <Compile Include="Uri.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

@@ -17,7 +17,14 @@ namespace Gepard
     {
         private static void Main(string[] args)
         {
-            new Application(args, "config", new ServerConfigSerializer(), new VirtualHostConfigSerializer());
+//            var uri = Uri.Parse("/");
+//            Console.WriteLine(uri.Url);
+//            foreach (var element in uri.UriDictionary)
+//            {
+//                Console.WriteLine(element.Key + " = " + element.Value);
+//            }
+
+            var application = new Application(args, "config", new ServerConfigSerializer(), new VirtualHostConfigSerializer());
         }
     }
 }

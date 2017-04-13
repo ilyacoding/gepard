@@ -13,7 +13,8 @@ namespace Gepard
 {
     public class HttpProcessor
     {
-        private ServerConfig ServerConfig { get; set; }
+        private const string HTTP_SERVER = "Gepard 0.1";
+        private ServerConfig ServerConfig { get; }
         private VirtualHostList VirtualHostList { get; set; }
 
         public HttpProcessor(ServerConfig serverConfig, VirtualHostList virtualHostList)
@@ -22,8 +23,12 @@ namespace Gepard
             VirtualHostList = virtualHostList;
         }
 
-        public Response Get(Request request)
+        public Response GetResponse(string html)
         {
+            var request = Request.Parse(html);
+
+            if (!VirtualHostList.HasVirtualHostHost(request.Host)) return MakeErrorFromFile(404);
+
             switch (request.Method)
             {
                 case "GET":
@@ -33,9 +38,15 @@ namespace Gepard
                     return MakeErrorFromFile(501);
             }
         }
-        
+
+        public Response GetErrorResponse(int errorCode)
+        {
+            return MakeErrorFromFile(errorCode);
+        }
+
         private Response GetProcess(Request request)
         {
+//            if ()
             var file = ServerConfig.DirectoryRoot + request.Uri;
 
             if (File.Exists(file))
@@ -70,15 +81,16 @@ namespace Gepard
 
         public Response MakeErrorFromFile(int errorCode)
         {
-            var data = File.ReadAllBytes(Path.Combine(Environment.CurrentDirectory, "pages", "error.html"));
-            return new Response(ResponseStatus.Get(200), data, "text");
-            //                        var data = File.ReadAllBytes(filePath);
-            //                        return new Response(ResponseStatus.Get(200), data, "html/text");
+            var data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "pages", "error.html"));
+            data = data.Replace("{CODE}", errorCode.ToString());
+            data = data.Replace("{CODE-DESCRIPTION}", ResponseStatus.Get(errorCode));
+            data = data.Replace("{SERVER}", HTTP_SERVER + " / " + Environment.OSVersion);
+            return new Response(ResponseStatus.Get(errorCode), Encoding.UTF8.GetBytes(data), "text");
         }
 
-        public void Post(NetworkStream stream, Response response)
+        public void PushTo(NetworkStream stream, Response response)
         {
-            var data = $"{HttpServer.HttpVersion} {response.Status}\r\nContent-type: {response.Mime}\r\nAccept-Ranges: bytes\r\nContent-Length: {response.Data.Length}\r\n\r\n";
+            var data = $"{Gepard.HttpServer.HttpVersion} {response.Status}\r\nContent-type: {response.Mime}\r\nAccept-Ranges: bytes\r\nContent-Length: {response.Data.Length}\r\n\r\n";
             var dataBytes = Encoding.UTF8.GetBytes(data);
 
             stream.Write(dataBytes, 0, dataBytes.Length);
@@ -97,6 +109,6 @@ namespace Gepard
             throw new NotImplementedException();
         }
 
-
+        
     }
 }

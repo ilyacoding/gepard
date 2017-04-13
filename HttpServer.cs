@@ -57,34 +57,20 @@ namespace Gepard
         public void HandleClient(object obj)
         {
             var client = (TcpClient)obj;
-//            client.ReceiveTimeout = 10;
             var stream = client.GetStream();
             while (true)
             {
                 try
                 {
-                    var html = Receive(stream);
-
-                    var request = Request.Parse(html);
-
-                    var response = HttpProcessor.Get(request);
-
-                    HttpProcessor.Post(stream, response);
-//                    var response = Response.From(request, ServerConfig);
-//                    response.Post(stream);
-//                    \r\nAccept - Ranges: bytes
-
-                    //                    response.Post(stream);
-                    //                    var str = "HTTP/1.1 200 OK\nContent-type: text/html\nContent-Length:" + html.Length.ToString() + "\n\n" + html;
-                    //                    
-
-//                    if (request.Connection.Equals("keep-alive")) continue;
+                    var strRequest = Receive(stream);
+                    var response = HttpProcessor.GetResponse(strRequest);
+                    HttpProcessor.PushTo(stream, response);
 
                     Console.WriteLine("Client " + client.Client.RemoteEndPoint + " disconnected.");
                     client.Close();
                     break;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Console.WriteLine("Client " + client.Client.RemoteEndPoint + " disconnected.");
                     client.Close();

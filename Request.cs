@@ -7,24 +7,29 @@ namespace Gepard
     public class Request
     {
         public string Method { get; set; }
-        public string Uri { get; set; }
+        public Uri Uri { get; set; }
         public string HttpVersion { get; set; }
+        public string Host { get; set; }
         public string Connection { get; set; }
-
+        
         public Dictionary<string, string> Fields { get; set; }
 
-        public Request(string method, string uri, string httpVersion, Dictionary<string, string> fields)
+        public Request(string method, Uri uri, string httpVersion, Dictionary<string, string> fields)
         {
             Method = method;
             Uri = uri;
             HttpVersion = httpVersion;
+
             Fields = fields;
+
             if (fields.ContainsKey("Connection"))
             {
-                if (fields["Connection"].Contains("keep-alive"))
-                {
-                    Connection = fields["Connection"];
-                }
+                Connection = fields["Connection"];
+            }
+
+            if (fields.ContainsKey("Host"))
+            {
+                Host = fields["Host"];
             }
         }
 
@@ -37,17 +42,10 @@ namespace Gepard
 
             if (startingLine.Length != 3) throw new Exception();
             var method = startingLine[0];
-            var uri = startingLine[1];
+            var uri = Uri.Parse(startingLine[1]);
             var httpVersion = startingLine[2];
-
-            var connection = false;
-
+            
             var fields = parts.Select(p => p.Split(new[] {':'}, 2)).Where(f => f.Count() > 1).ToDictionary(f => f[0].Trim(), f => f[1].Trim());
-
-//            foreach (var x in fields)
-//            {
-//                Console.WriteLine(x.Key + "=>" + x.Value);
-//            }
 
             return new Request(method, uri, httpVersion, fields);
         }
