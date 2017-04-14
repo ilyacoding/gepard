@@ -9,6 +9,7 @@ using Gepard.Configuration;
 using Gepard.Configuration.Server;
 using Gepard.Configuration.VirtualHost;
 using Gepard.Controllers;
+using Gepard.Core;
 
 namespace Gepard
 {
@@ -50,11 +51,17 @@ namespace Gepard
                 return;
             }
 
-            var controllerRegistry = new ControllerRegistry(ServerConfig);
-            controllerRegistry.Reg("GET", new GetController());
-            controllerRegistry.Reg("POST", new PostController());
-            
-            TcpServer = new HttpServer(ServerConfig, VirtualHostList, controllerRegistry);
+            var fileHandler = new FileHandler(ServerConfig);
+
+            var controllerRegistry = new ControllersRegistry(ServerConfig);
+            controllerRegistry.RegDefault(new NotImplementedController());
+
+            controllerRegistry.Reg("GET", new GetController(ServerConfig, fileHandler));
+//            controllerRegistry.Reg("POST", new PostController());
+
+            var controllerHandler = new ControllerHandler(controllerRegistry, VirtualHostList, ServerConfig);
+
+            TcpServer = new HttpServer(ServerConfig, VirtualHostList, controllerHandler);
             TcpServer.Start();
             Console.ReadKey();
             TcpServer.Stop();

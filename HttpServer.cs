@@ -10,6 +10,7 @@ using System.Threading;
 using Gepard.Configuration.Server;
 using Gepard.Configuration.VirtualHost;
 using Gepard.Controllers;
+using Gepard.Core;
 
 namespace Gepard
 {
@@ -22,13 +23,13 @@ namespace Gepard
         private ServerConfig ServerConfig { get; }
         private VirtualHostList VirtualHostList { get; set; }
         private HttpProcessor HttpProcessor { get; set; }
-        private ControllerRegistry ControllerRegistry { get; set; }
+        private ControllerHandler ControllerHandler { get; set; }
         
-        public HttpServer(ServerConfig serverConfig, VirtualHostList virtualHostList, ControllerRegistry controllerRegistry)
+        public HttpServer(ServerConfig serverConfig, VirtualHostList virtualHostList, ControllerHandler controllerHandler)
         {
             ServerConfig = serverConfig;
             VirtualHostList = virtualHostList;
-            ControllerRegistry = controllerRegistry;
+            ControllerHandler = controllerHandler;
             Server = new TcpListener(IPAddress.Parse(ServerConfig.Ip), ServerConfig.Port);
             HttpProcessor = new HttpProcessor(ServerConfig, VirtualHostList);
         }
@@ -66,24 +67,26 @@ namespace Gepard
                 try
                 {
                     var strRequest = Receive(stream);
-                    var request = Request.Parse(strRequest);
-                    request.VirtualHost = VirtualHostList.GetVirtualHost(request.Host);
-
-                    IController controller;
-                    Response response;
-
-                    try
-                    {
-                        controller = ControllerRegistry.Get(request.Method);
-                    }
-                    catch (Exception e)
-                    {
-                        
-                    }
-
-
-                    response = HttpProcessor.GetResponse(request);
-                    HttpProcessor.PushTo(stream, response);
+                    var response = ControllerHandler.Execute(strRequest);
+                    Send(stream, response);
+//                    var request = Request.Parse(strRequest);
+//                    request.VirtualHost = VirtualHostList.GetVirtualHost(request.Host);
+//
+//                    IController controller;
+//                    Response response;
+//
+//                    try
+//                    {
+//                        controller = ControllerRegistry.Get(request.Method);
+//                    }
+//                    catch (Exception e)
+//                    {
+//                        
+//                    }
+//
+//
+//                    response = HttpProcessor.GetResponse(request);
+//                    HttpProcessor.PushTo(stream, response);
 
 //                    Console.WriteLine("Client " + client.Client.RemoteEndPoint + " disconnected.");
                     client.Close();
@@ -113,10 +116,9 @@ namespace Gepard
             return data;
         }
 
-        public void Send(NetworkStream stream, string msg)
+        public void Send(NetworkStream stream, byte[] msg)
         {
-            var buffer = Encoding.UTF8.GetBytes(msg);
-            stream.Write(buffer, 0, buffer.Length);
+            stream.Write(msg, 0, msg.Length);
         }
 
 //        private static IPAddress GetLocalIp()

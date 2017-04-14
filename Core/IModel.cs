@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Gepard.Configuration.Server;
 
-namespace Gepard.Controllers
+namespace Gepard.Core
 {
-    public interface IController
+    public interface IModel
     {
         ServerConfig ServerConfig { get; set; }
         Response Execute(Request request);
