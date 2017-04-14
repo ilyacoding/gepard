@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Gepard.Configuration.Auth;
 
 namespace Gepard.Configuration.VirtualHost
 {
@@ -25,5 +26,8 @@ namespace Gepard.Configuration.VirtualHost
 
         [XmlElement("CustomLog")]
         public string CustomLog { get; set; }
+
+        [XmlArray("AuthenticationConfiguration")]
+        public List<AuthConfig> AuthConfigs { get; set; }
     }
 }

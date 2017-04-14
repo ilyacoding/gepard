@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Gepard.Configuration;
 using Gepard.Configuration.Server;
 using Gepard.Configuration.VirtualHost;
+using Gepard.Controllers;
 
 namespace Gepard
 {
@@ -49,7 +50,11 @@ namespace Gepard
                 return;
             }
 
-            TcpServer = new HttpServer(ServerConfig, VirtualHostList);
+            var controllerRegistry = new ControllerRegistry(ServerConfig);
+            controllerRegistry.Reg("GET", new GetController());
+            controllerRegistry.Reg("POST", new PostController());
+            
+            TcpServer = new HttpServer(ServerConfig, VirtualHostList, controllerRegistry);
             TcpServer.Start();
             Console.ReadKey();
             TcpServer.Stop();

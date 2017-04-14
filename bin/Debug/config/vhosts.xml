@@ -24,6 +24,15 @@
       <ServerName>s4.localhost</ServerName>
       <ServerAlias>www.s4.localhost</ServerAlias>
       <Directory>s4.localhost</Directory>
+	  <AuthenticationConfiguration>
+		<Authentication>
+		  <AuthType>Basic</AuthType>
+		  <AuthName>Secure Directory Access</AuthName>
+		  <Directory>/</Directory>
+		  <UserName>admin</UserName>
+		  <Password>123</Password>
+		</Authentication>
+	  </AuthenticationConfiguration>
     </VirtualHost>
   </VirtualHosts>
   <DefaultVirtualHost>

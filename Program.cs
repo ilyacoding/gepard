@@ -10,6 +10,7 @@ using System.Configuration;
 using Gepard.Configuration;
 using Gepard.Configuration.Server;
 using Gepard.Configuration.VirtualHost;
+using Gepard.Controllers;
 
 namespace Gepard
 {
@@ -17,13 +18,6 @@ namespace Gepard
     {
         private static void Main(string[] args)
         {
-//            var uri = Uri.Parse("/");
-//            Console.WriteLine(uri.Url);
-//            foreach (var element in uri.UriDictionary)
-//            {
-//                Console.WriteLine(element.Key + " = " + element.Value);
-//            }
-
             var application = new Application(args, "config", new ServerConfigSerializer(), new VirtualHostConfigSerializer());
         }
     }

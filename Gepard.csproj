@@ -62,14 +62,17 @@
   <ItemGroup>
     <Compile Include="Application.cs" />
     <Compile Include="Configuration\Auth\AuthConfig.cs" />
-    <Compile Include="Configuration\Auth\AuthConfigHandler.cs" />
-    <Compile Include="Configuration\Auth\AuthConfigSerializer.cs" />
     <Compile Include="Configuration\Server\ServerConfig.cs" />
     <Compile Include="Configuration\Server\ServerConfigHandler.cs" />
     <Compile Include="Configuration\Server\ServerConfigSerializer.cs" />
     <Compile Include="Configuration\VirtualHost\VirtualHostConfigHandler.cs" />
     <Compile Include="Configuration\VirtualHost\VirtualHostConfigSerializer.cs" />
     <Compile Include="Configuration\VirtualHost\VirtualHostList.cs" />
+    <Compile Include="Controllers\ControllerRegistry.cs" />
+    <Compile Include="Controllers\GetController.cs" />
+    <Compile Include="Controllers\IController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="FileHandler.cs" />
     <Compile Include="HttpProcessor.cs" />
     <Compile Include="MimeType.cs" />
     <Compile Include="Program.cs" />

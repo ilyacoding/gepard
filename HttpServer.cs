@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using System.Threading;
 using Gepard.Configuration.Server;
 using Gepard.Configuration.VirtualHost;
+using Gepard.Controllers;
 
 namespace Gepard
 {
@@ -21,11 +22,13 @@ namespace Gepard
         private ServerConfig ServerConfig { get; }
         private VirtualHostList VirtualHostList { get; set; }
         private HttpProcessor HttpProcessor { get; set; }
+        private ControllerRegistry ControllerRegistry { get; set; }
         
-        public HttpServer(ServerConfig serverConfig, VirtualHostList virtualHostList)
+        public HttpServer(ServerConfig serverConfig, VirtualHostList virtualHostList, ControllerRegistry controllerRegistry)
         {
             ServerConfig = serverConfig;
             VirtualHostList = virtualHostList;
+            ControllerRegistry = controllerRegistry;
             Server = new TcpListener(IPAddress.Parse(ServerConfig.Ip), ServerConfig.Port);
             HttpProcessor = new HttpProcessor(ServerConfig, VirtualHostList);
         }
@@ -64,8 +67,22 @@ namespace Gepard
                 {
                     var strRequest = Receive(stream);
                     var request = Request.Parse(strRequest);
+                    request.VirtualHost = VirtualHostList.GetVirtualHost(request.Host);
 
-                    var response = HttpProcessor.GetResponse(request, VirtualHostList.GetVirtualHost(request.Host));
+                    IController controller;
+                    Response response;
+
+                    try
+                    {
+                        controller = ControllerRegistry.Get(request.Method);
+                    }
+                    catch (Exception e)
+                    {
+                        
+                    }
+
+
+                    response = HttpProcessor.GetResponse(request);
                     HttpProcessor.PushTo(stream, response);
 
 //                    Console.WriteLine("Client " + client.Client.RemoteEndPoint + " disconnected.");

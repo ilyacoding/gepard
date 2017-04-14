@@ -2,6 +2,7 @@
 <ServerConfiguration>
   <Ip>127.0.0.1</Ip>
   <Port>8000</Port>
+  <ServerName>Gepard 0.1</ServerName>
   <DirectoryRoot>D:\Crypto\GitHub\gepard\bin\Debug</DirectoryRoot>
   <ErrorLog>error.log</ErrorLog>
 </ServerConfiguration>
