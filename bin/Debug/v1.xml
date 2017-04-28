@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-16"?>
+<VirtualHostsConfiguration>
+  <VirtualHosts>
+    <VirtualHost>
+      <ServerName>d</ServerName>
+      <ServerAlias>d</ServerAlias>
+      <Directory>d</Directory>
+      <ErrorLog>d</ErrorLog>
+      <CustomLog>a</CustomLog>
+      <DefaultIndex>
+        <IndexFile>
+          <FileName>index.html</FileName>
+        </IndexFile>
+        <IndexFile>
+          <FileName>index.php</FileName>
+        </IndexFile>
+      </DefaultIndex>
+      <Authentication />
+    </VirtualHost>
+  </VirtualHosts>
+  <DefaultVirtualHost />
+</VirtualHostsConfiguration>

@@ -12,7 +12,7 @@ namespace Gepard.Configuration.VirtualHost
     public class VirtualHostList
     {
         [XmlArray("VirtualHosts")]
-        public List<VirtualHost> VirtualHosts { get; }
+        public List<VirtualHost> VirtualHosts { get; set; }
 
         [XmlElement("DefaultVirtualHost")]
         public VirtualHost DefaultVirtualHost { get; set; }

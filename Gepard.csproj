@@ -61,6 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application.cs" />
+    <Compile Include="Configuration\VirtualHost\IndexFile.cs" />
+    <Compile Include="ErrorHandler.cs" />
     <Compile Include="Configuration\Auth\AuthConfig.cs" />
     <Compile Include="Configuration\Server\ServerConfig.cs" />
     <Compile Include="Configuration\Server\ServerConfigHandler.cs" />
@@ -74,10 +76,10 @@
     <Compile Include="Core\IController.cs" />
     <Compile Include="Controllers\NotImplementedController.cs" />
     <Compile Include="FileHandler.cs" />
+    <Compile Include="FileSystem\FileReader.cs" />
+    <Compile Include="FileSystem\ResponseMaker.cs" />
     <Compile Include="HttpProcessor.cs" />
     <Compile Include="MimeType.cs" />
-    <Compile Include="Models\GetModel.cs" />
-    <Compile Include="Core\IModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request.cs" />

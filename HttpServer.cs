@@ -19,7 +19,7 @@ namespace Gepard
         public const string HttpVersion = "HTTP/1.1";
 
         private TcpListener Server { get; }
-        private Thread Tasker { get; set; }
+        private Task Task { get; set; }
         private ServerConfig ServerConfig { get; }
         private VirtualHostList VirtualHostList { get; set; }
         private HttpProcessor HttpProcessor { get; set; }
@@ -32,19 +32,19 @@ namespace Gepard
             ControllerHandler = controllerHandler;
             Server = new TcpListener(IPAddress.Parse(ServerConfig.Ip), ServerConfig.Port);
             HttpProcessor = new HttpProcessor(ServerConfig, VirtualHostList);
+            Task = new Task(AcceptBackground);
         }
 
         public void Start()
         {
             Server.Start();
-            Tasker = new Thread(AcceptBackground);
-            Tasker.Start();
+            Task.Start();
             Console.WriteLine("Server started at " + Server.LocalEndpoint);
         }
 
         public void Stop()
         {
-            Tasker.Abort();
+         //   Task.Dispose();
         }
 
         public void AcceptBackground()
@@ -53,14 +53,13 @@ namespace Gepard
             {
                 var client = Server.AcceptTcpClient();
                 Console.WriteLine("-> Client" + client.Client.RemoteEndPoint + " connected.");
-                var newThread = new Thread(HandleClient);
-                newThread.Start(client);
+               // var task = new Task((() => HandleClient(client)));//Task.Factory.StartNew(()=>HandleClient(client));
+                Task.Factory.StartNew(() => HandleClient(client));
             }
         }
        
-        public void HandleClient(object obj)
+        public void HandleClient(TcpClient client)
         {
-            var client = (TcpClient)obj;
             var stream = client.GetStream();
             while (true)
             {
@@ -69,34 +68,15 @@ namespace Gepard
                     var strRequest = Receive(stream);
                     var response = ControllerHandler.Execute(strRequest);
                     Send(stream, response);
-//                    var request = Request.Parse(strRequest);
-//                    request.VirtualHost = VirtualHostList.GetVirtualHost(request.Host);
-//
-//                    IController controller;
-//                    Response response;
-//
-//                    try
-//                    {
-//                        controller = ControllerRegistry.Get(request.Method);
-//                    }
-//                    catch (Exception e)
-//                    {
-//                        
-//                    }
-//
-//
-//                    response = HttpProcessor.GetResponse(request);
-//                    HttpProcessor.PushTo(stream, response);
 
-//                    Console.WriteLine("Client " + client.Client.RemoteEndPoint + " disconnected.");
                     client.Close();
                     break;
                 }
                 catch (Exception e)
                 {
-//                    Console.WriteLine("Client " + client.Client.RemoteEndPoint + " disconnected.");
-//                    client.Close();
+                    client.Close();
                     Console.WriteLine(e.ToString());
+
                     break;
                 }
             }
@@ -120,18 +100,5 @@ namespace Gepard
         {
             stream.Write(msg, 0, msg.Length);
         }
-
-//        private static IPAddress GetLocalIp()
-//        {
-//            var host = Dns.GetHostEntry(Dns.GetHostName());
-//            foreach (var ip in host.AddressList)
-//            {
-//                if (ip.AddressFamily == AddressFamily.InterNetwork)
-//                {
-//                    return ip;
-//                }
-//            }
-//            throw new Exception("Local IP Address Not Found!");
-//        }
     }
 }

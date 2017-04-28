@@ -14,7 +14,7 @@ namespace Gepard.Core
         private Dictionary<string, IController> Dictionary { get; set; }
         private IController DefaultController { get; set; }
 
-        public ControllersRegistry(ServerConfig serverConfig)
+        public ControllersRegistry()
         {
             Dictionary = new Dictionary<string, IController>();
         }

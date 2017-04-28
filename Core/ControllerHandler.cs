@@ -11,16 +11,13 @@ namespace Gepard.Core
 {
     public class ControllerHandler
     {
-        public ServerConfig ServerConfig { get; set; }
         private ControllersRegistry ControllerRegistry { get; set; }
         private VirtualHostList VirtualHostList { get; set; }
-        private FileHandler FileHandler { get; set; }
 
-        public ControllerHandler(ControllersRegistry controllersRegistry, VirtualHostList virtualHostList, ServerConfig serverConfig)
+        public ControllerHandler(ControllersRegistry controllersRegistry, VirtualHostList virtualHostList)
         {
             ControllerRegistry = controllersRegistry;
             VirtualHostList = virtualHostList;
-            FileHandler = new FileHandler(serverConfig);
         }
 
         public byte[] Execute(string str)
@@ -28,9 +25,12 @@ namespace Gepard.Core
             var request = Request.Parse(str);
             request.VirtualHost = VirtualHostList.GetVirtualHost(request.Host);
             var controller = ControllerRegistry.Get(request.Method);
-            Console.WriteLine(controller.GetType().ToString());
+
+            //Console.WriteLine(controller.GetType().ToString());
             var response = controller.Execute(request);
+
             // View Response -> byte[]
+
             var data = $"{Gepard.HttpServer.HttpVersion} {response.Status}\r\nContent-type: {response.Mime}\r\nAccept-Ranges: bytes\r\nContent-Length: {response.Data.Length}\r\n\r\n";
             var dataBytes = Encoding.UTF8.GetBytes(data);
 
@@ -38,7 +38,7 @@ namespace Gepard.Core
             
         }
 
-        public byte[] Combine(byte[] first, byte[] second)
+        private static byte[] Combine(byte[] first, byte[] second)
         {
             var ret = new byte[first.Length + second.Length];
             Buffer.BlockCopy(first, 0, ret, 0, first.Length);

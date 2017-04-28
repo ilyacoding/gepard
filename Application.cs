@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Gepard.Configuration;
+using Gepard.Configuration.Auth;
 using Gepard.Configuration.Server;
 using Gepard.Configuration.VirtualHost;
 using Gepard.Controllers;
@@ -15,6 +16,8 @@ namespace Gepard
 {
     public class Application
     {
+        private ErrorHandler ErrorHandler { get; set; }
+
         public string ExecutionPath { get; set; }
         public HttpServer TcpServer { get; set; }
 
@@ -23,7 +26,7 @@ namespace Gepard
 
         public ServerConfigHandler ServerConfigHandler { get; set; }
         public VirtualHostConfigHandler VirtualHostConfigHandler { get; set; }
-
+        
         public Application(string[] argStrings, string configDirectory, ServerConfigSerializer serverConfigSerializer, VirtualHostConfigSerializer virtualHostConfigSerializer)
         {
             ExecutionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -40,6 +43,8 @@ namespace Gepard
                 return;
             }
 
+            ErrorHandler = new ErrorHandler(Path.Combine(ExecutionPath, "logs", ServerConfig.ErrorLog));
+
             try
             {
                 VirtualHostConfigHandler = new VirtualHostConfigHandler(virtualHostConfigSerializer);
@@ -47,21 +52,21 @@ namespace Gepard
             }
             catch (Exception)
             {
-                Console.WriteLine("Error parsing vhosts.xml configuration file.");
-                return;
+                ErrorHandler.WriteCriticalError("Error parsing vhosts.xml configuration file.");
             }
-
+               
             var fileHandler = new FileHandler(ServerConfig);
 
-            var controllerRegistry = new ControllersRegistry(ServerConfig);
+            var controllerRegistry = new ControllersRegistry();
+
             controllerRegistry.RegDefault(new NotImplementedController());
 
             controllerRegistry.Reg("GET", new GetController(ServerConfig, fileHandler));
-//            controllerRegistry.Reg("POST", new PostController());
 
-            var controllerHandler = new ControllerHandler(controllerRegistry, VirtualHostList, ServerConfig);
+            var controllerHandler = new ControllerHandler(controllerRegistry, VirtualHostList);
 
             TcpServer = new HttpServer(ServerConfig, VirtualHostList, controllerHandler);
+
             TcpServer.Start();
             Console.ReadKey();
             TcpServer.Stop();

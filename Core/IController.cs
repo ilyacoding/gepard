@@ -10,8 +10,6 @@ namespace Gepard.Core
 {
     public interface IController
     {
-        ServerConfig ServerConfig { get; set; }
-        FileHandler FileHandler { get; set; }
         Response Execute(Request request);
     }
 }
