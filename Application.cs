@@ -19,7 +19,7 @@ namespace Gepard
         private ErrorHandler ErrorHandler { get; set; }
 
         public string ExecutionPath { get; set; }
-        public HttpServer TcpServer { get; set; }
+        public HttpServer HttpServer { get; set; }
 
         public ServerConfig ServerConfig { get; set; }
         public VirtualHostList VirtualHostList { get; set; }
@@ -65,11 +65,11 @@ namespace Gepard
 
             var controllerHandler = new ControllerHandler(controllerRegistry, VirtualHostList);
 
-            TcpServer = new HttpServer(ServerConfig, VirtualHostList, controllerHandler);
+            HttpServer = new HttpServer(ServerConfig, VirtualHostList, controllerHandler);
 
-            TcpServer.Start();
+            HttpServer.Start();
             Console.ReadKey();
-            TcpServer.Stop();
+            HttpServer.Stop();
         }
     }
 }

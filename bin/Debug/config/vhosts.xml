@@ -44,6 +44,26 @@
         </IndexFile>
       </DefaultIndex>
     </VirtualHost>
+		<VirtualHost>
+      <ServerName>s5.localhost</ServerName>
+      <ServerAlias>www.s5.localhost</ServerAlias>
+      <Directory>s5.localhost</Directory>
+      <DefaultIndex>
+        <IndexFile>
+          <FileName>webcontent.htm</FileName>
+        </IndexFile>
+      </DefaultIndex>
+    </VirtualHost>
+		<VirtualHost>
+      <ServerName>s6.localhost</ServerName>
+      <ServerAlias>www.s6.localhost</ServerAlias>
+      <Directory>s6.localhost</Directory>
+      <DefaultIndex>
+        <IndexFile>
+          <FileName>index.htm</FileName>
+        </IndexFile>
+      </DefaultIndex>
+    </VirtualHost>
 	<VirtualHost>
       <ServerName>s4.localhost</ServerName>
       <ServerAlias>www.s4.localhost</ServerAlias>

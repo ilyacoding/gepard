@@ -15,11 +15,59 @@ namespace Gepard
         public byte[] Data { get; set; }
         public string Mime { get; set; }
 
-        public Response(string status, byte[] data, string mime)
+        public Dictionary<string, string> Fields { get; set; }
+        
+        public Response(string status, byte[] data, string mime = "text/plain")
         {
             Status = status;
             Data = data;
             Mime = mime;
+
+            Fields = new Dictionary<string, string>();
+        }
+
+        public byte[] GetBytes()
+        {
+            //if (httpAction.Object != null)
+            //{
+            //    var serializer = SerializerRegistry.Get(Request.GetField("Accept"));
+            //
+            //    var datareq = Encoding.UTF8.GetBytes(serializer.Serialize(httpAction.Object, httpAction.Object.GetType()));
+            //
+            //    Response = new Response(ResponseStatus.Get(httpAction.Code), datareq);
+            //    Response.Fields.Add("Content-Type", serializer.Mime);
+            //}
+            //else
+            //{
+            //    Response = new Response(ResponseStatus.Get(httpAction.Code), null);
+            //}
+
+            //return CreateByteResponse();
+
+            if (Data != null)
+            {
+                Fields.Add("Accept-ranges", "bytes");
+                Fields.Add("Content-Length", Data.Length.ToString());
+            }
+
+            var data = $"{HttpServer.HttpVersion} {Status}\r\n";
+
+            foreach (var title in Fields)
+            {
+                data += $"{title.Key}: {title.Value}\r\n";
+            }
+
+            data += "\r\n";
+
+            return Data != null ? CombineBytes(Encoding.UTF8.GetBytes(data), Data) : Encoding.UTF8.GetBytes(data);
+        }
+
+        private static byte[] CombineBytes(byte[] first, byte[] second)
+        {
+            var ret = new byte[first.Length + second.Length];
+            Buffer.BlockCopy(first, 0, ret, 0, first.Length);
+            Buffer.BlockCopy(second, 0, ret, first.Length, second.Length);
+            return ret;
         }
     }
 }

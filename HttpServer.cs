@@ -22,7 +22,6 @@ namespace Gepard
         private Task Task { get; set; }
         private ServerConfig ServerConfig { get; }
         private VirtualHostList VirtualHostList { get; set; }
-        private HttpProcessor HttpProcessor { get; set; }
         private ControllerHandler ControllerHandler { get; set; }
         
         public HttpServer(ServerConfig serverConfig, VirtualHostList virtualHostList, ControllerHandler controllerHandler)
@@ -30,8 +29,8 @@ namespace Gepard
             ServerConfig = serverConfig;
             VirtualHostList = virtualHostList;
             ControllerHandler = controllerHandler;
+
             Server = new TcpListener(IPAddress.Parse(ServerConfig.Ip), ServerConfig.Port);
-            HttpProcessor = new HttpProcessor(ServerConfig, VirtualHostList);
             Task = new Task(AcceptBackground);
         }
 

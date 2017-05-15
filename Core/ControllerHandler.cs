@@ -22,28 +22,13 @@ namespace Gepard.Core
 
         public byte[] Execute(string str)
         {
-            var request = Request.Parse(str);
+            var request = new Request(str);
             request.VirtualHost = VirtualHostList.GetVirtualHost(request.Host);
             var controller = ControllerRegistry.Get(request.Method);
-
-            //Console.WriteLine(controller.GetType().ToString());
+            
             var response = controller.Execute(request);
 
-            // View Response -> byte[]
-
-            var data = $"{Gepard.HttpServer.HttpVersion} {response.Status}\r\nContent-type: {response.Mime}\r\nAccept-Ranges: bytes\r\nContent-Length: {response.Data.Length}\r\n\r\n";
-            var dataBytes = Encoding.UTF8.GetBytes(data);
-
-            return Combine(dataBytes, response.Data);
-            
-        }
-
-        private static byte[] Combine(byte[] first, byte[] second)
-        {
-            var ret = new byte[first.Length + second.Length];
-            Buffer.BlockCopy(first, 0, ret, 0, first.Length);
-            Buffer.BlockCopy(second, 0, ret, first.Length, second.Length);
-            return ret;
+            return response.GetBytes();
         }
     }
 }

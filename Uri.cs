@@ -8,29 +8,21 @@ namespace Gepard
     {
         public string Url { get; set; }
         public Dictionary<string, string> UriDictionary { get; set; }
-
-        public Uri(string url, Dictionary<string, string> uriDictionary)
+        
+        public Uri(string uri)
         {
-            Url = url;
-            UriDictionary = uriDictionary;
-        }
-
-        public static Uri Parse(string uri)
-        {
-            var uriDictionary = new Dictionary<string, string>();
+            UriDictionary = new Dictionary<string, string>();
             uri = uri.Trim('/', '\\');
 
             var uriParts = uri.Split('?');
-            var url = uriParts[0];
+            Url = uriParts[0];
 
             if (uriParts.Length > 2) throw new Exception("Invalid url");
 
-            if (uriParts.Length != 2) return new Uri(url, uriDictionary);
+            if (uriParts.Length != 2) return;
 
             var parameters = uriParts[1].Split('&');
-            uriDictionary = parameters.Select(element => element.Split('=')).Where(keyValue => keyValue.Length == 2).ToDictionary(keyValue => keyValue[0].Trim(), keyValue => keyValue[1].Trim());
-
-            return new Uri(url, uriDictionary);
+            UriDictionary = parameters.Select(element => element.Split('=')).Where(keyValue => keyValue.Length == 2).ToDictionary(keyValue => keyValue[0].Trim(), keyValue => keyValue[1].Trim());
         }
     }
 }

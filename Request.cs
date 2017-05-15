@@ -10,46 +10,34 @@ namespace Gepard
         public string Method { get; set; }
         public Uri Uri { get; set; }
         public string HttpVersion { get; set; }
+
+        public Dictionary<string, string> Fields { get; set; }
+        public string this[string key] => Fields.ContainsKey(key) ? Fields[key] : "";
+
+        public string Body { get; set; }
         public string Host { get; set; }
-        public string Connection { get; set; }
+
         public VirtualHost VirtualHost { get; set; }
         
-        public Dictionary<string, string> Fields { get; set; }
-
-        public Request(string method, Uri uri, string httpVersion, Dictionary<string, string> fields)
+        public Request(string data)
         {
-            Method = method;
-            Uri = uri;
-            HttpVersion = httpVersion;
+            var parts = data.Split(new[] { "\r\n\r\n" }, StringSplitOptions.None);
+            if (parts.Length < 1) throw new Exception("Invalid data");
 
-            Fields = fields;
+            Body = parts.Length == 2 ? parts[1] : "";
 
-            if (fields.ContainsKey("Connection"))
-            {
-                Connection = fields["Connection"];
-            }
+            var headers = parts[0].Split('\n').ToList();
 
-            if (fields.ContainsKey("Host"))
-            {
-                Host = fields["Host"].Split(':')[0];
-            }
-        }
-
-        public static Request Parse(string data)
-        {
-            var parts = data.Split('\n').ToList();
-            if (parts.Count < 1) throw new Exception();
-            var startingLine = parts[0].Split(' ');
-            parts.RemoveAt(0);
+            var startingLine = headers[0].Split(' ');
+            headers.RemoveAt(0);
 
             if (startingLine.Length != 3) throw new Exception();
-            var method = startingLine[0];
-            var uri = Uri.Parse(startingLine[1]);
-            var httpVersion = startingLine[2];
-            
-            var fields = parts.Select(p => p.Split(new[] {':'}, 2)).Where(f => f.Count() > 1).ToDictionary(f => f[0].Trim(), f => f[1].Trim());
+            Method = startingLine[0];
+            Uri = new Uri(startingLine[1]);
 
-            return new Request(method, uri, httpVersion, fields);
+            Fields = headers.Select(p => p.Split(new[] { ':' }, 2)).Where(f => f.Count() > 1).ToDictionary(f => f[0].Trim(), f => f[1].Trim());
+
+            Host = this["Host"].Split(new[] {':'})[0];
         }
     }
 }

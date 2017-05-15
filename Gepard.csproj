@@ -62,6 +62,17 @@
   <ItemGroup>
     <Compile Include="Application.cs" />
     <Compile Include="Configuration\VirtualHost\IndexFile.cs" />
+    <Compile Include="Controllers\GetMethodHandler.cs" />
+    <Compile Include="Controllers\RequestHandler.cs" />
+    <Compile Include="Core\HttpAction\BadRequest.cs" />
+    <Compile Include="Core\HttpAction\Created.cs" />
+    <Compile Include="Core\HttpAction\IHttpAction.cs" />
+    <Compile Include="Core\HttpAction\MethodNotAllowed.cs" />
+    <Compile Include="Core\HttpAction\NoContent.cs" />
+    <Compile Include="Core\HttpAction\NotFound.cs" />
+    <Compile Include="Core\HttpAction\NotImplemented.cs" />
+    <Compile Include="Core\HttpAction\NotModified.cs" />
+    <Compile Include="Core\HttpAction\Ok.cs" />
     <Compile Include="ErrorHandler.cs" />
     <Compile Include="Configuration\Auth\AuthConfig.cs" />
     <Compile Include="Configuration\Server\ServerConfig.cs" />
