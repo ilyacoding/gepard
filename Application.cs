@@ -58,12 +58,16 @@ namespace Gepard
             var fileHandler = new FileHandler(ServerConfig);
 
             var controllerRegistry = new ControllersRegistry();
-
-            controllerRegistry.RegDefault(new NotImplementedController());
-
             controllerRegistry.Reg("GET", new GetController(ServerConfig, fileHandler));
 
-            var controllerHandler = new ControllerHandler(controllerRegistry, VirtualHostList);
+            var chainControllerHandler = new ChainControllerHandler();
+            chainControllerHandler.Reg(new BasicAuthHandler());
+            chainControllerHandler.Reg(new DigestAuthHandler());
+            chainControllerHandler.Reg(new IfGetMethodHandler());
+            chainControllerHandler.Reg(new PartGetMethodHandler());
+            chainControllerHandler.Reg(new GetMethodHandler());
+            
+            var controllerHandler = new ControllerHandler(controllerRegistry, VirtualHostList, chainControllerHandler);
 
             HttpServer = new HttpServer(ServerConfig, VirtualHostList, controllerHandler);
 

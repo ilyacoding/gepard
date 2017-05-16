@@ -10,6 +10,7 @@ namespace Gepard
             { 501, "Not implemented" },
 
             { 200, "OK" },
+            { 201, "Created" },
             { 400, "Bad request" },
             { 401, "Unauthorized" },
             { 403, "Forbidden" },

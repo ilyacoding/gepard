@@ -39,9 +39,6 @@
         <IndexFile>
           <FileName>index.html</FileName>
         </IndexFile>
-        <IndexFile>
-          <FileName>index.php</FileName>
-        </IndexFile>
       </DefaultIndex>
     </VirtualHost>
 		<VirtualHost>

@@ -8,7 +8,7 @@ using Gepard.Core.HttpAction;
 
 namespace Gepard.Controllers
 {
-    public class GetMethodHandler : IRequestHandler
+    public class DigestAuthHandler : IRequestHandler
     {
         public IRequestHandler NextHandler { get; set; }
 

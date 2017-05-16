@@ -10,5 +10,6 @@ namespace Gepard.Core.HttpAction
     {
         int Code { get; set; }
         object Object { get; set; }
+        
     }
 }

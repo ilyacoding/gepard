@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Gepard.Configuration.Server;
+using Gepard;
 using Gepard.Core;
+using Gepard.Core.HttpAction;
 
 namespace Gepard.Controllers
 {
-    public class NotImplementedController : IController
+    public class PostMethodHandler : IRequestHandler
     {
-        public ServerConfig ServerConfig { get; set; }
-        public FileHandler FileHandler { get; set; }
+        public IRequestHandler NextHandler { get; set; }
 
-        public Response Execute(Request request)
+        public IHttpAction Handle(Request request)
         {
             throw new NotImplementedException();
         }
