@@ -62,8 +62,6 @@
   <ItemGroup>
     <Compile Include="Application.cs" />
     <Compile Include="Configuration\VirtualHost\IndexFile.cs" />
-    <Compile Include="Controllers\BasicAuthHandler.cs" />
-    <Compile Include="Controllers\DigestAuthHandler.cs" />
     <Compile Include="Controllers\GetMethodHandler.cs" />
     <Compile Include="Controllers\IfGetMethodHandler.cs" />
     <Compile Include="Controllers\PostMethodHandler.cs" />
@@ -79,6 +77,11 @@
     <Compile Include="Core\HttpAction\NotImplemented.cs" />
     <Compile Include="Core\HttpAction\NotModified.cs" />
     <Compile Include="Core\HttpAction\Ok.cs" />
+    <Compile Include="Core\Response\HttpContent.cs" />
+    <Compile Include="Core\Response\HttpHeaders.cs" />
+    <Compile Include="Core\Response\HttpRange.cs" />
+    <Compile Include="Core\Response\HttpResponse.cs" />
+    <Compile Include="Core\Response\HttpVersion.cs" />
     <Compile Include="ErrorHandler.cs" />
     <Compile Include="Configuration\Auth\AuthConfig.cs" />
     <Compile Include="Configuration\Server\ServerConfig.cs" />
@@ -90,8 +93,8 @@
     <Compile Include="Core\ControllerHandler.cs" />
     <Compile Include="Core\ControllersRegistry.cs" />
     <Compile Include="Controllers\GetController.cs" />
-    <Compile Include="Core\IController.cs" />
     <Compile Include="FileHandler.cs" />
+    <Compile Include="FileSystem.cs" />
     <Compile Include="HttpProcessor.cs" />
     <Compile Include="MimeType.cs" />
     <Compile Include="Program.cs" />

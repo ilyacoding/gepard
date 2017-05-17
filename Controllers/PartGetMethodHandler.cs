@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Gepard.Core;
 using Gepard.Core.HttpAction;
+using Gepard.Core.Response;
 
 namespace Gepard.Controllers
 {
@@ -14,7 +15,11 @@ namespace Gepard.Controllers
 
         public IHttpAction Handle(Request request)
         {
-            throw new NotImplementedException();
+            if (request.Method == "GET" && request["If-Modified-Since"] != null)
+            {
+                return new NotFound();
+            }
+            return NextHandler != null ? NextHandler.Handle(request) : new NotImplemented();
         }
     }
 }

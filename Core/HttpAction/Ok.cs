@@ -3,18 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Gepard.Core.Response;
 
 namespace Gepard.Core.HttpAction
 {
     public class Ok : IHttpAction
     {
-        public int Code { get; set; }
-        public object Object { get; set; }
+        public HttpResponse HttpResponse { get; set; }
 
-        public Ok(object obj)
+        public Ok(byte[] dataBytes, string mime)
         {
-            Code = 200;
-            Object = obj;
+            HttpResponse = new HttpResponse
+            {
+                HttpStatusCode = 200,
+                IsSuccessStatus = true,
+                Content = new HttpContent(){Data = dataBytes}
+            };
+            HttpResponse.Headers.Add("Content-Type", mime);
         }
+
     }
 }

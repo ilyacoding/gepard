@@ -12,12 +12,10 @@ namespace Gepard.Core
     public class ControllerHandler
     {
         private ChainControllerHandler ChainControllerHandler { get; set; }
-        private ControllersRegistry ControllerRegistry { get; set; }
         private VirtualHostList VirtualHostList { get; set; }
 
-        public ControllerHandler(ControllersRegistry controllersRegistry, VirtualHostList virtualHostList, ChainControllerHandler chainControllerHandler)
+        public ControllerHandler(VirtualHostList virtualHostList, ChainControllerHandler chainControllerHandler)
         {
-            ControllerRegistry = controllersRegistry;
             VirtualHostList = virtualHostList;
             ChainControllerHandler = chainControllerHandler;
         }
@@ -27,12 +25,9 @@ namespace Gepard.Core
             var request = new Request(str);
             request.VirtualHost = VirtualHostList.GetVirtualHost(request.Host);
 
-            var response = ChainControllerHandler.Execute(request);
+            var httpResponse = ChainControllerHandler.Execute(request).HttpResponse;
 
-            var controller = ControllerRegistry.Get(request.Method);
-            var response = controller.Execute(request);
-
-            return response.GetBytes();
+            return httpResponse.GetBytes();
         }
     }
 }

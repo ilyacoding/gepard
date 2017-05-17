@@ -10,27 +10,29 @@ namespace Gepard
 {
     public class FileHandler
     {
-        private ServerConfig ServerConfig { get; set; }
+        private string DirectoryRoot { get; set; }
+        private string ServerName { get; set; }
 
-        public FileHandler(ServerConfig serverConfig)
+        public FileHandler(string directoryRoot, string serverName)
         {
-            ServerConfig = serverConfig;
+            DirectoryRoot = directoryRoot;
+            ServerName = serverName;
         }
 
-        public Response MakeFromFile(FileInfo fileInfo)
+        public byte[] MakeFromFile(FileInfo fileInfo)
         {
             var filePath = fileInfo.FullName;
-            var data = File.ReadAllBytes(filePath);
-            return new Response(ResponseStatus.Get(200), data, MimeType.GetByExtension(fileInfo.Extension));
+            return File.ReadAllBytes(filePath);
+            //return new Response(ResponseStatus.Get(200), data, MimeType.GetByExtension(fileInfo.Extension));
         }
 
-        public Response MakeErrorFromFile(int errorCode)
+        public byte[] MakeErrorFromFile(int errorCode)
         {
-            var data = File.ReadAllText(Path.Combine(ServerConfig.DirectoryRoot, "pages", "error.html"));
+            var data = File.ReadAllText(Path.Combine(DirectoryRoot, "pages", "error.html"));
             data = data.Replace("{CODE}", errorCode.ToString());
             data = data.Replace("{CODE-DESCRIPTION}", ResponseStatus.Get(errorCode));
-            data = data.Replace("{SERVER}", ServerConfig.ServerName + " / " + Environment.OSVersion);
-            return new Response(ResponseStatus.Get(errorCode), Encoding.UTF8.GetBytes(data), "text");
+            data = data.Replace("{SERVER}", ServerName + " / " + Environment.OSVersion);
+            return Encoding.UTF8.GetBytes(data);
         }
     }
 }

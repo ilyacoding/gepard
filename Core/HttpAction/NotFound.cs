@@ -3,18 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Gepard.Core.Response;
 
 namespace Gepard.Core.HttpAction
 {
     public class NotFound : IHttpAction
     {
-        public int Code { get; set; }
-        public object Object { get; set; }
+        public HttpResponse HttpResponse { get; set; }
 
         public NotFound()
         {
-            Code = 404;
-            Object = null;
+            HttpResponse = new HttpResponse
+            {
+                HttpStatusCode = 404,
+                IsSuccessStatus = false
+            };
+        }
+
+        public NotFound(byte[] dataBytes, string mime)
+        {
+            HttpResponse = new HttpResponse
+            {
+                HttpStatusCode = 404,
+                IsSuccessStatus = false,
+                Content = new HttpContent() { Data = dataBytes }
+            };
+            HttpResponse.Headers.Add("Content-Type", mime);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Gepard
         public string HttpVersion { get; set; }
 
         public Dictionary<string, string> Fields { get; set; }
-        public string this[string key] => Fields.ContainsKey(key) ? Fields[key] : "";
+        public string this[string key] => Fields.ContainsKey(key) ? Fields[key] : null;
 
         public string Body { get; set; }
         public string Host { get; set; }

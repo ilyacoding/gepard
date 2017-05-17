@@ -55,19 +55,18 @@ namespace Gepard
                 ErrorHandler.WriteCriticalError("Error parsing vhosts.xml configuration file.");
             }
                
-            var fileHandler = new FileHandler(ServerConfig);
+            var fileHandler = new FileHandler(ServerConfig.DirectoryRoot, ServerConfig.ServerName);
 
-            var controllerRegistry = new ControllersRegistry();
-            controllerRegistry.Reg("GET", new GetController(ServerConfig, fileHandler));
+            //var controllerRegistry = new ControllersRegistry();
+            //controllerRegistry.Reg("GET", new GetController(ServerConfig, fileHandler));
 
             var chainControllerHandler = new ChainControllerHandler();
-            chainControllerHandler.Reg(new BasicAuthHandler());
-            chainControllerHandler.Reg(new DigestAuthHandler());
+
             chainControllerHandler.Reg(new IfGetMethodHandler());
             chainControllerHandler.Reg(new PartGetMethodHandler());
-            chainControllerHandler.Reg(new GetMethodHandler());
+            chainControllerHandler.Reg(new GetMethodHandler(ServerConfig.DirectoryRoot, fileHandler));
             
-            var controllerHandler = new ControllerHandler(controllerRegistry, VirtualHostList, chainControllerHandler);
+            var controllerHandler = new ControllerHandler(VirtualHostList, chainControllerHandler);
 
             HttpServer = new HttpServer(ServerConfig, VirtualHostList, controllerHandler);
 

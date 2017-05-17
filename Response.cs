@@ -27,23 +27,7 @@ namespace Gepard
         }
 
         public byte[] GetBytes()
-        {
-            //if (httpAction.Object != null)
-            //{
-            //    var serializer = SerializerRegistry.Get(Request.GetField("Accept"));
-            //
-            //    var datareq = Encoding.UTF8.GetBytes(serializer.Serialize(httpAction.Object, httpAction.Object.GetType()));
-            //
-            //    Response = new Response(ResponseStatus.Get(httpAction.Code), datareq);
-            //    Response.Fields.Add("Content-Type", serializer.Mime);
-            //}
-            //else
-            //{
-            //    Response = new Response(ResponseStatus.Get(httpAction.Code), null);
-            //}
-
-            //return CreateByteResponse();
-
+        { 
             if (Data != null)
             {
                 Fields.Add("Accept-ranges", "bytes");
