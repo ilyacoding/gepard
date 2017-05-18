@@ -52,8 +52,6 @@ namespace Gepard
             while (true)
             {
                 var client = Server.AcceptTcpClient();
-                //Console.WriteLine("-> Client" + client.Client.RemoteEndPoint + " connected.");
-                //var task = new Task((() => HandleClient(client)));//Task.Factory.StartNew(()=>HandleClient(client));
                 Task.Factory.StartNew(() => HandleClient(client));
             }
         }

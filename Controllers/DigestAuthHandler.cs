@@ -35,10 +35,6 @@ namespace Gepard.Controllers
                     if (request.Object.Uri.Url.StartsWith(authConfig.AuthDirectory))
                     {
                         // Need auth
-                        // HA1 = MD5(username:realm:password)
-                        // HA2 = MD5(method:digestURI)
-                        // response = MD5(HA1:nonce:HA2)
-                        //var authString = "Basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(authConfig.UserName + ":" + authConfig.Password));
 
                         var ha1 = Md5($"{authConfig.UserName}:{authConfig.Realm}:{authConfig.Password}");
                         var ha2 = Md5($"{request.Object.Method}:/{request.Object.Uri.Url}");
