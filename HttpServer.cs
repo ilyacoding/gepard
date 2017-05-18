@@ -20,6 +20,8 @@ namespace Gepard
 
         private TcpListener Server { get; }
         private Task Task { get; set; }
+        private CancellationTokenSource Canceller { get; set; }
+        private bool WasAborted { get; set; }
         private ServerConfig ServerConfig { get; }
         private VirtualHostList VirtualHostList { get; set; }
         private ControllerHandler ControllerHandler { get; set; }
@@ -44,10 +46,10 @@ namespace Gepard
 
         public void Stop()
         {
-         //   Task.Dispose();
+            Task.Dispose();
         }
-
-        public void AcceptBackground()
+        
+        private void AcceptBackground()
         {
             while (true)
             {
@@ -56,7 +58,7 @@ namespace Gepard
             }
         }
        
-        public void HandleClient(TcpClient client)
+        private void HandleClient(TcpClient client)
         {
             var stream = client.GetStream();
             client.ReceiveTimeout = ServerConfig.KeepAliveTimeout * 1000;
@@ -67,7 +69,6 @@ namespace Gepard
                 {
                     var strRequest = Receive(stream);
                     var response = ControllerHandler.Execute(strRequest, client.Client.LocalEndPoint.ToString());
-                    Console.WriteLine(Encoding.UTF8.GetString(response.ArrayBytes));
                     Send(stream, response.ArrayBytes);
                     
                     if (response.ConnectionAlive) continue;
@@ -75,17 +76,15 @@ namespace Gepard
                     client.Close();
                     break;
                 }
-                catch (Exception e)
+                catch
                 {
                     client.Close();
-                    Console.WriteLine(e.ToString());
-
                     break;
                 }
             }
         }
         
-        public string Receive(NetworkStream stream)
+        private string Receive(NetworkStream stream)
         {
             var buffer = new byte[256];
             var data = "";
@@ -99,7 +98,7 @@ namespace Gepard
             return data;
         }
 
-        public void Send(NetworkStream stream, byte[] msg)
+        private void Send(NetworkStream stream, byte[] msg)
         {
             stream.Write(msg, 0, msg.Length);
         }

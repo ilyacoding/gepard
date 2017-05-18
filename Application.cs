@@ -68,10 +68,23 @@ namespace Gepard
             var controllerHandler = new ControllerHandler(VirtualHostList, chainControllerHandler, ServerConfig.ServerName, ServerConfig.DirectoryRoot);
 
             HttpServer = new HttpServer(ServerConfig, VirtualHostList, controllerHandler);
+        }
 
+        public void Start()
+        {
             HttpServer.Start();
-            Console.ReadKey();
-            HttpServer.Stop();
+        }
+
+        public void Stop()
+        {
+            try
+            {
+                HttpServer.Stop();
+            }
+            catch
+            {
+                
+            }
         }
     }
 }

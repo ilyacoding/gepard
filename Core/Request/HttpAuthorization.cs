@@ -32,11 +32,6 @@ namespace Gepard.Core.Request
                     var keyValue = field.Trim().Split(new[] { '=' }, 2);
                     Fields.Add(keyValue[0].Trim().ToLower(), keyValue[1].Trim(new[] { '"' }));
                 }
-
-                foreach (var field in Fields)
-                {
-                    Console.WriteLine(field.Key + " => " + field.Value);
-                }
             }
             catch
             {

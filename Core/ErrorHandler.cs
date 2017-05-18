@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Gepard.Core.Logs;
 
-namespace Gepard
+namespace Gepard.Core
 {
     public class ErrorHandler
     {

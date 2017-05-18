@@ -3,7 +3,7 @@
   <Ip>127.0.0.1</Ip>
   <Port>8000</Port>
   <ServerName>Gepard /1.3</ServerName>
-  <KeepAliveTimeout>30</KeepAliveTimeout>
+  <KeepAliveTimeout>1</KeepAliveTimeout>
   <DirectoryRoot>D:\Crypto\GitHub\gepard\bin\Debug</DirectoryRoot>
   <ErrorLog>error.log</ErrorLog>
 </ServerConfiguration>

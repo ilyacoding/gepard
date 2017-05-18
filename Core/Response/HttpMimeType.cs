@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gepard
+namespace Gepard.Core.Response
 {
     public class HttpMimeType
     {   
