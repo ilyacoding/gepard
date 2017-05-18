@@ -1,0 +1,152 @@
+﻿Выполняется установка сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Выполняется откат для сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Выполняется установка сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Устанавливается служба GepardService...
+Создается исходный EventLog GepardService в журнале Application...
+Выполняется откат для сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Восстанавливается исходное состояние журнала событий для источника GepardService.
+Выполняется установка сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Устанавливается служба GepardService...
+Служба GepardService успешно установлена.
+Создается исходный EventLog GepardService в журнале Application...
+Выполняется фиксация сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Выполняется установка сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Устанавливается служба GepardService...
+Создается исходный EventLog GepardService в журнале Application...
+Выполняется откат для сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Восстанавливается исходное состояние журнала событий для источника GepardService.
+Выполняется установка сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Устанавливается служба GepardService...
+Создается исходный EventLog GepardService в журнале Application...
+Выполняется откат для сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Восстанавливается исходное состояние журнала событий для источника GepardService.
+Выполняется удаление сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Выполняется удаление источника EventLog GepardService.
+При выполнении программы установки System.Diagnostics.EventLogInstaller во время установки возникло исключение.
+System.Security.SecurityException: Запрошенный доступ к реестру запрещен.
+При удалении из системы возникло исключение. Это исключение будет проигнорировано, и удаление из системы будет продолжено. Однако после завершения удаления данное приложение может оказаться не полностью удаленным.
+Выполняется удаление сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Выполняется удаление источника EventLog GepardService.
+При выполнении программы установки System.Diagnostics.EventLogInstaller во время установки возникло исключение.
+System.Security.SecurityException: Запрошенный доступ к реестру запрещен.
+При удалении из системы возникло исключение. Это исключение будет проигнорировано, и удаление из системы будет продолжено. Однако после завершения удаления данное приложение может оказаться не полностью удаленным.
+Выполняется удаление сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Выполняется удаление источника EventLog GepardService.
+При выполнении программы установки System.Diagnostics.EventLogInstaller во время установки возникло исключение.
+System.Security.SecurityException: Запрошенный доступ к реестру запрещен.
+При удалении из системы возникло исключение. Это исключение будет проигнорировано, и удаление из системы будет продолжено. Однако после завершения удаления данное приложение может оказаться не полностью удаленным.
+Выполняется удаление сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Выполняется удаление источника EventLog GepardService.
+Выполняется удаление службы GepardService из системы...
+Служба GepardService успешно удалена из системы.
+Выполняется установка сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Устанавливается служба GepardService...
+Служба GepardService успешно установлена.
+Создается исходный EventLog GepardService в журнале Application...
+Выполняется фиксация сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Выполняется удаление сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Выполняется удаление источника EventLog GepardService.
+Выполняется удаление службы GepardService из системы...
+Служба GepardService успешно удалена из системы.
+Выполняется установка сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Устанавливается служба GepardService...
+Служба GepardService успешно установлена.
+Создается исходный EventLog GepardService в журнале Application...
+Выполняется фиксация сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Выполняется удаление сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Выполняется удаление источника EventLog GepardService.
+Выполняется удаление службы GepardService из системы...
+Служба GepardService успешно удалена из системы.
+Выполняется установка сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe
+Устанавливается служба Gepard...
+Служба Gepard успешно установлена.
+Создается исходный EventLog Gepard в журнале Application...
+Выполняется фиксация сборки 'D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.InstallLog
+   assemblypath = D:\Crypto\GitHub\gepard\bin\Debug\Gepard.exe

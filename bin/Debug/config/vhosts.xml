@@ -71,7 +71,7 @@
 		  <Directory></Directory>
 		  <Realm>Secure Directory Access</Realm>
 		  <UserName>admin</UserName>
-		  <Password>123</Password>
+		  <Password>12345</Password>
 		</BasicAuthConfig>
 	  </BasicAuthentication>
     </VirtualHost>

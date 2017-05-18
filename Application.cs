@@ -27,9 +27,10 @@ namespace Gepard
         public ServerConfigHandler ServerConfigHandler { get; set; }
         public VirtualHostConfigHandler VirtualHostConfigHandler { get; set; }
         
-        public Application(string[] argStrings, string configDirectory, ServerConfigSerializer serverConfigSerializer, VirtualHostConfigSerializer virtualHostConfigSerializer)
+        public Application(string configDirectory, ServerConfigSerializer serverConfigSerializer, VirtualHostConfigSerializer virtualHostConfigSerializer)
         {
-            ExecutionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            //ExecutionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            ExecutionPath = "D:\\Crypto\\GitHub\\gepard\\bin\\Debug\\";
             if (ExecutionPath == null) throw new ApplicationException("Can' get execution path.");
 
             try
@@ -37,7 +38,7 @@ namespace Gepard
                 ServerConfigHandler = new ServerConfigHandler(serverConfigSerializer);
                 ServerConfig = ServerConfigHandler.LoadFromFile(Path.Combine(ExecutionPath, configDirectory, "server.xml"));
             }
-            catch (Exception)
+            catch
             {
                 Console.WriteLine("Error parsing server.xml configuration file.");
                 return;
@@ -50,7 +51,7 @@ namespace Gepard
                 VirtualHostConfigHandler = new VirtualHostConfigHandler(virtualHostConfigSerializer);
                 VirtualHostList = VirtualHostConfigHandler.LoadFromFile(Path.Combine(ExecutionPath, configDirectory, "vhosts.xml"));
             }
-            catch (Exception)
+            catch
             {
                 ErrorHandler.WriteCriticalError("Error parsing vhosts.xml configuration file.");
             }
@@ -58,7 +59,7 @@ namespace Gepard
             var chainControllerHandler = new ChainControllerHandler();
 
             chainControllerHandler.Reg(new DigestAuthHandler());
-            //chainControllerHandler.Reg(new BasicAuthHandler());
+            chainControllerHandler.Reg(new BasicAuthHandler());
 
             chainControllerHandler.Reg(new OptionsMethodHandler());
             chainControllerHandler.Reg(new WebSiteOne());
