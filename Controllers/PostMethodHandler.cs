@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Gepard;
 using Gepard.Core;
 using Gepard.Core.HttpAction;
+using Gepard.Core.Request;
 using Gepard.Core.Response;
 
 namespace Gepard.Controllers
@@ -15,9 +16,9 @@ namespace Gepard.Controllers
     {
         public IRequestHandler NextHandler { get; set; }
 
-        public IHttpAction Handle(Request request)
+        public IHttpAction Handle(HttpRequest request)
         {
-            if (request.Method == "POST")
+            if (request.Object.Method == "POST")
             {
                 return new NotFound();
             }

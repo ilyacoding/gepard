@@ -16,6 +16,9 @@ namespace Gepard.Configuration.Server
         [XmlElement("ServerName")]
         public string ServerName { get; set; }
 
+        [XmlElement("KeepAliveTimeout")]
+        public int KeepAliveTimeout { get; set; }
+
         [XmlElement("DirectoryRoot")]
         public string DirectoryRoot { get; set; }
 

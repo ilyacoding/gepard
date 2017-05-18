@@ -19,16 +19,5 @@ namespace Gepard.Core.HttpAction
                 IsSuccessStatus = false
             };
         }
-
-        public NotFound(byte[] dataBytes, string mime)
-        {
-            HttpResponse = new HttpResponse
-            {
-                HttpStatusCode = 404,
-                IsSuccessStatus = false,
-                Content = new HttpContent() { Data = dataBytes }
-            };
-            HttpResponse.Headers.Add("Content-Type", mime);
-        }
     }
 }

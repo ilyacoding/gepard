@@ -26,7 +26,7 @@ namespace Gepard.Core
         //    }
         //}
 
-        public IHttpAction Execute(Request request)
+        public IHttpAction Execute(Request.HttpRequest request)
         {
             return RequestHandler.Handle(request);
         }

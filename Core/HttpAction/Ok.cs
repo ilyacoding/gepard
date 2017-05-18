@@ -11,16 +11,15 @@ namespace Gepard.Core.HttpAction
     {
         public HttpResponse HttpResponse { get; set; }
 
-        public Ok(byte[] dataBytes, string mime)
+        public Ok(HttpHeaders httpHeaders, byte[] dataBytes)
         {
             HttpResponse = new HttpResponse
             {
                 HttpStatusCode = 200,
                 IsSuccessStatus = true,
-                Content = new HttpContent(){Data = dataBytes}
+                Content = new HttpContent(){Data = dataBytes},
+                Headers = httpHeaders
             };
-            HttpResponse.Headers.Add("Content-Type", mime);
         }
-
     }
 }

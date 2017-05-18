@@ -24,7 +24,6 @@ namespace Gepard.Core.Response
 
         public byte[] GetBytes()
         {
-
             if (Content.Data != null)
             {
                 Headers.Add("Accept-ranges", "bytes");
@@ -35,7 +34,7 @@ namespace Gepard.Core.Response
             
             foreach (var title in Headers.HeadersList)
             {
-                data += $"{title.Key}: {title.Value}\r\n";
+                data += $"{title.Key}:{title.Value}\r\n";
             }
             
             data += "\r\n";

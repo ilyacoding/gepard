@@ -24,13 +24,13 @@ namespace Gepard.Configuration.VirtualHost
         [XmlElement("ErrorLog")]
         public string ErrorLog { get; set; }
 
-        [XmlElement("CustomLog")]
-        public string CustomLog { get; set; }
+        [XmlElement("AccessLog")]
+        public string AccessLog { get; set; }
 
         [XmlArray("DefaultIndex")]
         public List<IndexFile> DefaultIndex { get; set; }
 
         [XmlArray("Authentication")]
-        public List<AuthConfig> AuthConfigs { get; set; }
+        public List<BasicAuthConfig> AuthConfigs { get; set; }
     }
 }

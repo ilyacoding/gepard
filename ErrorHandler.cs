@@ -4,12 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Gepard.Core.Logs;
 
 namespace Gepard
 {
     public class ErrorHandler
     {
-        private string Path { get; set; }
+        public string Path { get; set; }
 
         public ErrorHandler(string path)
         {

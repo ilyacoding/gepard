@@ -6,7 +6,7 @@
       <ServerAlias>www.example.com</ServerAlias>
       <Directory>example.com</Directory>
       <ErrorLog>example.com.error.log</ErrorLog>
-      <CustomLog>example.com.custom.log</CustomLog>
+      <AccessLog>example.com.custom.log</AccessLog>
       <DefaultIndex>
         <IndexFile>
           <FileName>index.html</FileName>
@@ -21,7 +21,7 @@
       <ServerAlias>www.mylocal.host</ServerAlias>
       <Directory>mylocal.host</Directory>
       <ErrorLog>mylocal.host.error.log</ErrorLog>
-      <CustomLog>mylocal.host.custom.log</CustomLog>
+      <AccessLog>mylocal.host.custom.log</AccessLog>
       <DefaultIndex>
         <IndexFile>
           <FileName>index.html</FileName>
@@ -35,6 +35,8 @@
       <ServerName>s3.localhost</ServerName>
       <ServerAlias>www.s3.localhost</ServerAlias>
       <Directory>s3.localhost</Directory>
+      <ErrorLog>s3.localhost.error.log</ErrorLog>
+      <AccessLog>s3.localhost.access.log</AccessLog>
       <DefaultIndex>
         <IndexFile>
           <FileName>index.html</FileName>
@@ -45,6 +47,8 @@
       <ServerName>s5.localhost</ServerName>
       <ServerAlias>www.s5.localhost</ServerAlias>
       <Directory>s5.localhost</Directory>
+      <ErrorLog>s5.localhost.error.log</ErrorLog>
+      <AccessLog>s5.localhost.access.log</AccessLog>
       <DefaultIndex>
         <IndexFile>
           <FileName>webcontent.htm</FileName>
@@ -55,6 +59,8 @@
       <ServerName>s6.localhost</ServerName>
       <ServerAlias>www.s6.localhost</ServerAlias>
       <Directory>s6.localhost</Directory>
+      <ErrorLog>s6.localhost.error.log</ErrorLog>
+      <AccessLog>s6.localhost.access.log</AccessLog>
       <DefaultIndex>
         <IndexFile>
           <FileName>index.htm</FileName>
@@ -65,6 +71,8 @@
       <ServerName>s4.localhost</ServerName>
       <ServerAlias>www.s4.localhost</ServerAlias>
       <Directory>s4.localhost</Directory>
+      <ErrorLog>s4.localhost.error.log</ErrorLog>
+      <AccessLog>s4.localhost.access.log</AccessLog>
       <DefaultIndex>
         <IndexFile>
           <FileName>index.html</FileName>
@@ -73,15 +81,14 @@
           <FileName>index.php</FileName>
         </IndexFile>
       </DefaultIndex>
-	  <AuthenticationConfiguration>
-		<Authentication>
-		  <AuthType>Basic</AuthType>
+	  <Authentication>
+		<BasicAuthConfig>
 		  <AuthName>Secure Directory Access</AuthName>
-		  <Directory>/</Directory>
+		  <Directory>images</Directory>
 		  <UserName>admin</UserName>
 		  <Password>123</Password>
-		</Authentication>
-	  </AuthenticationConfiguration>
+		</BasicAuthConfig>
+	  </Authentication>
     </VirtualHost>
   </VirtualHosts>
   <DefaultVirtualHost>
@@ -89,7 +96,7 @@
     <ServerAlias>localhost</ServerAlias>
     <Directory>localhost</Directory>
     <ErrorLog>localhost.error.log</ErrorLog>
-    <CustomLog>localhost.custom.log</CustomLog>
+    <AccessLog>localhost.custom.log</AccessLog>
       <DefaultIndex>
         <IndexFile>
           <FileName>index.html</FileName>

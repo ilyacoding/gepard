@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Gepard.Core;
 using Gepard.Core.HttpAction;
+using Gepard.Core.Request;
 using Gepard.Core.Response;
 
 namespace Gepard.Controllers
@@ -13,9 +14,9 @@ namespace Gepard.Controllers
     {
         public IRequestHandler NextHandler { get; set; }
 
-        public IHttpAction Handle(Request request)
+        public IHttpAction Handle(HttpRequest request)
         {
-            if (request.Method == "GET" && request["If-Modified-Since"] != null)
+            if (request.Object.Method == "GET" && 1 == -1)
             {
                 return new NotFound();
             }

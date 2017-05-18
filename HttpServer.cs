@@ -16,7 +16,7 @@ namespace Gepard
 {
     public class HttpServer
     {
-        public const string HttpVersion = "HTTP/1.1";
+        public static string HttpServerName { get; set; }
 
         private TcpListener Server { get; }
         private Task Task { get; set; }
@@ -26,6 +26,7 @@ namespace Gepard
         
         public HttpServer(ServerConfig serverConfig, VirtualHostList virtualHostList, ControllerHandler controllerHandler)
         {
+            HttpServerName = serverConfig.ServerName;
             ServerConfig = serverConfig;
             VirtualHostList = virtualHostList;
             ControllerHandler = controllerHandler;
@@ -51,8 +52,8 @@ namespace Gepard
             while (true)
             {
                 var client = Server.AcceptTcpClient();
-                Console.WriteLine("-> Client" + client.Client.RemoteEndPoint + " connected.");
-               // var task = new Task((() => HandleClient(client)));//Task.Factory.StartNew(()=>HandleClient(client));
+                //Console.WriteLine("-> Client" + client.Client.RemoteEndPoint + " connected.");
+                //var task = new Task((() => HandleClient(client)));//Task.Factory.StartNew(()=>HandleClient(client));
                 Task.Factory.StartNew(() => HandleClient(client));
             }
         }
@@ -60,14 +61,18 @@ namespace Gepard
         public void HandleClient(TcpClient client)
         {
             var stream = client.GetStream();
+            client.ReceiveTimeout = ServerConfig.KeepAliveTimeout * 1000;
+
             while (true)
             {
                 try
                 {
                     var strRequest = Receive(stream);
-                    var response = ControllerHandler.Execute(strRequest);
-                    Send(stream, response);
-
+                    var response = ControllerHandler.Execute(strRequest, client.Client.LocalEndPoint.ToString());
+                    Send(stream, response.ArrayBytes);
+                    
+                    if (response.ConnectionAlive) continue;
+                    
                     client.Close();
                     break;
                 }

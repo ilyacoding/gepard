@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,9 @@ using System.Threading.Tasks;
 using System.Web.UI;
 using Gepard.Configuration.Server;
 using Gepard.Core;
+using Gepard.Core.FileHandling;
 using Gepard.Core.HttpAction;
+using Gepard.Core.Request;
 using Gepard.Core.Response;
 
 namespace Gepard.Controllers
@@ -15,44 +18,52 @@ namespace Gepard.Controllers
     public class GetMethodHandler : IRequestHandler
     {
         private string DirectoryRoot { get; set; }
-        private FileHandler FileHandler { get; set; }
         public IRequestHandler NextHandler { get; set; }
 
-        public GetMethodHandler(string directoryRoot, FileHandler fileHandler)
+        public GetMethodHandler(string directoryRoot)
         {
             DirectoryRoot = directoryRoot;
-            FileHandler = fileHandler;
         }
 
-        public IHttpAction Handle(Request request)
+        public IHttpAction Handle(HttpRequest request)
         {
-            if (request.Method == "GET")
+            if (request.Object.Method == "GET")
             {
-                //if (request.VirtualHost.AuthConfigs.Any(x => x.AuthDirectory == ))
-                
-                var fileSystem = new FileSystem(Path.Combine(DirectoryRoot, "www", request.VirtualHost.Directory, request.Uri.Url));
+                var httpHeaders = new HttpHeaders();
 
-                if (fileSystem.IsFile())
-                {
-                    var fileInfo = new FileInfo(fileSystem.Path);
-                    return new Ok(FileHandler.MakeFromFile(fileInfo), MimeType.GetByExtension(fileInfo.Extension));
-                }
-                else if (fileSystem.IsDirectory())
-                {
-                    var directoryInfo = new DirectoryInfo(fileSystem.Path);
-                    foreach (var fileInfo in directoryInfo.GetFiles())
-                    {
-                        var fileName = fileInfo.Name;
-                        foreach (var indexFile in request.VirtualHost.DefaultIndex)
-                        {
-                            if (fileName.Contains(indexFile.FileName))
-                            {
-                                return new Ok(FileHandler.MakeFromFile(fileInfo), MimeType.GetByExtension(fileInfo.Extension));
-                            }
-                        }
-                    }
-                }
-                return new NotFound();
+                var fileSystem = new FileSystem(Path.Combine(DirectoryRoot, "www", request.VirtualHost.Directory, request.Object.Uri.Url), request.VirtualHost.DefaultIndex);
+
+                var fileDescription = fileSystem.GetFile();
+
+                if (fileDescription == null) return new NotFound();
+
+                var dateChange = new HttpDate(fileDescription.GetLastModified());
+
+                httpHeaders.Add("Content-Type", HttpMimeType.GetByExtension(fileDescription.GetExtension()) + "; charset=" + fileDescription.GetEncoding());
+                httpHeaders.Add("Last-Modified", dateChange.ToString());
+
+                //if (request.Object.HttpRange != null)
+                //{
+                //    httpHeaders.Add("Content-Range", request.Object.HttpRange.ToString());
+                //}
+
+                //if (request.Object["If-Modified-Since"] != null)
+                //{
+                //    try
+                //    {
+                //        var requestDate = DateTime.Parse(request.Object["If-Modified-Since"].Trim());
+                //        if (requestDate >= dateChange.DateTime)
+                //        {
+                //            return new NotModified(httpHeaders);
+                //        }
+                //    }
+                //    catch
+                //    {
+                //        // ignored
+                //    }
+                //}
+
+                return new Ok(httpHeaders, fileDescription.GetAllBytes());
             }
             return NextHandler != null ? NextHandler.Handle(request) : new NotImplemented();
         }

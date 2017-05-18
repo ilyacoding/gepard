@@ -9,15 +9,17 @@ namespace Gepard.Core.HttpAction
 {
     public class NotModified : IHttpAction
     {
-        public int Code { get; set; }
-        public object Object { get; set; }
-
-        public NotModified()
-        {
-            Code = 204;
-            Object = null;
-        }
-
         public HttpResponse HttpResponse { get; set; }
+
+        public NotModified(HttpHeaders httpHeaders)
+        {
+            HttpResponse = new HttpResponse()
+            {
+                HttpStatusCode = 304,
+                IsSuccessStatus = true,
+                Content = new HttpContent() { Data = null },
+                Headers = httpHeaders
+            };
+        }
     }
 }

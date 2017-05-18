@@ -19,7 +19,5 @@ namespace Gepard.Core.Response
         {
             HeadersList.Add(key, value);
         }
-
-
     }
 }
