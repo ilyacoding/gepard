@@ -8,19 +8,29 @@ namespace Gepard.Core.Response
 {
     public class HttpRange
     {
-        public int Min { get; set; }
-        public int Max { get; set; }
-        public int Size { get; set; }
+        public ulong Min { get; private set; }
+        public ulong Max { get; private set; }
+        public ulong Size { get; private set; }
 
         public HttpRange(string str)
         {
-            //"bytes=88080384-";
-            var p = str.Split(new [] { ',' })[0].Split(new [] { ' ' })[1];
-            var parsed = p.Split(new [] { '-' });
-            Min = Convert.ToInt32(parsed[0] ?? "0");
-            if (parsed.Length > 1)
+            var parsed = str.Split(new[] { ',' })[0].Split(new[] { '=' })[1].Split(new [] { '-' }, 2);
+            Min = Convert.ToUInt64(parsed[0] != "" ? parsed[0] : "0");
+            Max = Convert.ToUInt64(parsed[1] != "" ? parsed[1] : ulong.MaxValue.ToString());
+
+            if (Min > Max)
             {
-                Max = Convert.ToInt32(parsed[1] != "" ? parsed[1] : "0");
+                throw new Exception();
+            }
+        }
+
+        public void Normalize(ulong size)
+        {
+            Size = size;
+
+            if (Max > Size)
+            {
+                Max = Size;
             }
         }
 

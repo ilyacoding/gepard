@@ -56,10 +56,10 @@ namespace Gepard
             }
 
             var chainControllerHandler = new ChainControllerHandler();
-            
+
             chainControllerHandler.Reg(new BasicAuthHandler());
             chainControllerHandler.Reg(new WebSiteOne());
-            chainControllerHandler.Reg(new PartGetMethodHandler());
+            //chainControllerHandler.Reg(new PartGetMethodHandler());
             chainControllerHandler.Reg(new GetMethodHandler(ServerConfig.DirectoryRoot));
             
             var controllerHandler = new ControllerHandler(VirtualHostList, chainControllerHandler, ServerConfig.ServerName, ServerConfig.DirectoryRoot);

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Gepard.Core.Response;
 
 namespace Gepard.Core.FileHandling
 {
@@ -19,6 +20,24 @@ namespace Gepard.Core.FileHandling
         public byte[] GetAllBytes()
         {
             return File.ReadAllBytes(FileInfo.FullName);
+        }
+
+        public ulong GetFileSize()
+        {
+            return (ulong)FileInfo.Length;
+        }
+
+        public byte[] GetRangeBytes(HttpRange httpRange)
+        {
+            var bytesArray = new List<byte>();
+            var fileContent = File.ReadAllBytes(FileInfo.FullName);
+
+            for (var i = httpRange.Min; i <= httpRange.Max; i++)
+            {
+                bytesArray.Add(fileContent[i]);
+            }
+
+            return bytesArray.ToArray();
         }
 
         public string GetExtension()

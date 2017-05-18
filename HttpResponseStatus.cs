@@ -11,6 +11,7 @@ namespace Gepard
 
             { 200, "OK" },
             { 201, "Created" },
+            { 206, "Partial content" },
             { 304, "Not modified" },
             { 400, "Bad request" },
             { 401, "Unauthorized" },
@@ -18,6 +19,7 @@ namespace Gepard
             { 404, "Not found" },
             { 405, "Method not allowed" },
             { 415, "Unsupported media type" },
+            { 416, "Requested Range Not Satisfiable" },
             { 434, "Requested host unavailable" },
             { 500, "Internal Server Error" }
         };

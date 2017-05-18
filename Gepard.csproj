@@ -68,6 +68,7 @@
     <Compile Include="Controllers\PostMethodHandler.cs" />
     <Compile Include="Controllers\WebSiteOne.cs" />
     <Compile Include="Core\FileHandling\FileDescription.cs" />
+    <Compile Include="Core\HttpAction\NotSatisfiable.cs" />
     <Compile Include="Core\HttpAction\PartialContent.cs" />
     <Compile Include="Core\HttpAction\Unauthorized.cs" />
     <Compile Include="Core\IRequestHandler.cs" />

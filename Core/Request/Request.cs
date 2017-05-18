@@ -16,7 +16,7 @@ namespace Gepard.Core.Request
         public string Authorization { get; set; }
         public string UserAgent { get; set; }
         public bool KeepAlive { get; set; }
-        //public HttpRange HttpRange { get; set; }
+        public HttpRange HttpRange { get; set; }
 
         private Dictionary<string, string> Fields { get; set; }
         public string this[string key] => Fields.ContainsKey(key.ToLower()) ? Fields[key.ToLower()] : null;
@@ -51,14 +51,14 @@ namespace Gepard.Core.Request
                 KeepAlive = string.Equals(this["Connection"], "keep-alive", StringComparison.CurrentCultureIgnoreCase);
             }
 
-            //try
-            //{
-            //    HttpRange = new HttpRange(this["Range"]);
-            //}
-            //catch (Exception)
-            //{
-            //    //Console.WriteLine(e);
-            //}
+            try
+            {
+                HttpRange = new HttpRange(this["Range"]);
+            }
+            catch
+            {
+                // ignored
+            }
         }
     }
 }

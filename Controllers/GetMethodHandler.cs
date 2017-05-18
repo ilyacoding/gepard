@@ -42,26 +42,43 @@ namespace Gepard.Controllers
                 httpHeaders.Add("Content-Type", HttpMimeType.GetByExtension(fileDescription.GetExtension()) + "; charset=" + fileDescription.GetEncoding());
                 httpHeaders.Add("Last-Modified", dateChange.ToString());
 
-                //if (request.Object.HttpRange != null)
-                //{
-                //    httpHeaders.Add("Content-Range", request.Object.HttpRange.ToString());
-                //}
+                if (request.Object.HttpRange != null)
+                {
+                    try
+                    {
+                        request.Object.HttpRange.Normalize(fileDescription.GetFileSize() - 1);
+                        var bytesArray = fileDescription.GetRangeBytes(request.Object.HttpRange);
+                        if (bytesArray.Length > 0)
+                        {
+                            httpHeaders.Add("Content-Range", request.Object.HttpRange.ToString());
+                            return new PartialContent(httpHeaders, bytesArray);
+                        }
+                        else
+                        {
+                            return new NotSatisfiable();
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        request.Object.HttpRange = null;
+                    }
+                }
 
-                //if (request.Object["If-Modified-Since"] != null)
-                //{
-                //    try
-                //    {
-                //        var requestDate = DateTime.Parse(request.Object["If-Modified-Since"].Trim());
-                //        if (requestDate >= dateChange.DateTime)
-                //        {
-                //            return new NotModified(httpHeaders);
-                //        }
-                //    }
-                //    catch
-                //    {
-                //        // ignored
-                //    }
-                //}
+                if (request.Object["If-Modified-Since"] != null)
+                {
+                    try
+                    {
+                        var requestDate = DateTime.Parse(request.Object["If-Modified-Since"].Trim());
+                        if (requestDate >= dateChange.DateTime)
+                        {
+                            return new NotModified(httpHeaders);
+                        }
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+                }
 
                 return new Ok(httpHeaders, fileDescription.GetAllBytes());
             }

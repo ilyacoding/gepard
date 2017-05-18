@@ -16,7 +16,7 @@ namespace Gepard.Controllers
 
         public IHttpAction Handle(HttpRequest request)
         {
-            if (request.Object.Method == "GET" && 1 == -1)
+            if (request.Object.Method == "GET" && request.Object.HttpRange != null)
             {
                 return new NotFound();
             }
