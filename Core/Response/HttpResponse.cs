@@ -24,11 +24,14 @@ namespace Gepard.Core.Response
 
         public byte[] GetBytes()
         {
-            if (Content.Data != null)
+            if (!Content.IncludeBody)
             {
-                Headers.Add("Accept-ranges", "bytes");
-                Headers.Add("Content-Length", Content.Data.Length.ToString());
+                Content.Data = null;
+                Console.WriteLine("1");
             }
+
+            Headers.Add("Accept-ranges", "bytes");
+            Headers.Add("Content-Length", Content.Data?.Length.ToString() ?? "0");
             
             var data = $"{HttpVersion} {HttpStatusCode}\r\n";
             

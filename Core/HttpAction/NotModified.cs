@@ -11,13 +11,13 @@ namespace Gepard.Core.HttpAction
     {
         public HttpResponse HttpResponse { get; set; }
 
-        public NotModified(HttpHeaders httpHeaders)
+        public NotModified(HttpHeaders httpHeaders, bool includeBody = true)
         {
             HttpResponse = new HttpResponse()
             {
                 HttpStatusCode = 304,
                 IsSuccessStatus = true,
-                Content = new HttpContent() { Data = null },
+                Content = new HttpContent() { Data = null, IncludeBody = includeBody },
                 Headers = httpHeaders
             };
         }

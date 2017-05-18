@@ -11,12 +11,13 @@ namespace Gepard.Core.HttpAction
     {
         public HttpResponse HttpResponse { get; set; }
 
-        public NotFound()
+        public NotFound(bool includeBody = true)
         {
             HttpResponse = new HttpResponse
             {
                 HttpStatusCode = 404,
-                IsSuccessStatus = false
+                IsSuccessStatus = false,
+                Content = new HttpContent() { Data = null, IncludeBody = includeBody },
             };
         }
     }

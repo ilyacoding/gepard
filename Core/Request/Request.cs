@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Gepard.Configuration.VirtualHost;
 using Gepard.Core.Response;
 
@@ -13,10 +14,10 @@ namespace Gepard.Core.Request
         public string HttpVersion { get; set; }
 
         public string Host { get; set; }
-        public string Authorization { get; set; }
         public string UserAgent { get; set; }
         public bool KeepAlive { get; set; }
         public HttpRange HttpRange { get; set; }
+        public HttpAuthorization Authorization { get; set; }
 
         private Dictionary<string, string> Fields { get; set; }
         public string this[string key] => Fields.ContainsKey(key.ToLower()) ? Fields[key.ToLower()] : null;
@@ -43,13 +44,15 @@ namespace Gepard.Core.Request
 
             Host = this["Host"].Split(new[] {':'})[0];
 
-            Authorization = this["Authorization"] ?? "";
             UserAgent = this["User-Agent"] ?? "";
+            
 
             if (this["Connection"] != null)
             {
                 KeepAlive = string.Equals(this["Connection"], "keep-alive", StringComparison.CurrentCultureIgnoreCase);
             }
+            
+            Authorization = new HttpAuthorization(this["Authorization"]);
 
             try
             {

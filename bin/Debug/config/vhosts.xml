@@ -66,6 +66,14 @@
           <FileName>index.htm</FileName>
         </IndexFile>
       </DefaultIndex>
+	  <BasicAuthentication>
+		<BasicAuthConfig>
+		  <Directory></Directory>
+		  <Realm>Secure Directory Access</Realm>
+		  <UserName>admin</UserName>
+		  <Password>123</Password>
+		</BasicAuthConfig>
+	  </BasicAuthentication>
     </VirtualHost>
 	<VirtualHost>
       <ServerName>s4.localhost</ServerName>
@@ -81,14 +89,14 @@
           <FileName>index.php</FileName>
         </IndexFile>
       </DefaultIndex>
-	  <Authentication>
-		<BasicAuthConfig>
-		  <AuthName>Secure Directory Access</AuthName>
-		  <Directory>images</Directory>
+	  <DigestAuthentication>
+		<DigestAuthConfig>
+		  <Directory></Directory>
+		  <Realm>Secure logon</Realm>
 		  <UserName>admin</UserName>
-		  <Password>123</Password>
-		</BasicAuthConfig>
-	  </Authentication>
+		  <Password>12345</Password>
+		</DigestAuthConfig>
+	  </DigestAuthentication>
     </VirtualHost>
   </VirtualHosts>
   <DefaultVirtualHost>

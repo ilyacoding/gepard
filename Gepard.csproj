@@ -62,9 +62,12 @@
   <ItemGroup>
     <Compile Include="Application.cs" />
     <Compile Include="ByteResponse.cs" />
+    <Compile Include="Configuration\Auth\DigestAuthConfig.cs" />
     <Compile Include="Configuration\VirtualHost\IndexFile.cs" />
     <Compile Include="Controllers\BasicAuthHandler.cs" />
-    <Compile Include="Controllers\GetMethodHandler.cs" />
+    <Compile Include="Controllers\DigestAuthHandler.cs" />
+    <Compile Include="Controllers\GetHeadMethodHandler.cs" />
+    <Compile Include="Controllers\OptionsMethodHandler.cs" />
     <Compile Include="Controllers\PostMethodHandler.cs" />
     <Compile Include="Controllers\WebSiteOne.cs" />
     <Compile Include="Core\FileHandling\FileDescription.cs" />
@@ -81,6 +84,7 @@
     <Compile Include="Core\HttpAction\Ok.cs" />
     <Compile Include="Core\Logs\AccessLogHandler.cs" />
     <Compile Include="Core\Logs\ILogHandler.cs" />
+    <Compile Include="Core\Request\HttpAuthorization.cs" />
     <Compile Include="Core\Request\HttpRequest.cs" />
     <Compile Include="Core\Response\HttpContent.cs" />
     <Compile Include="Core\Response\HttpDate.cs" />

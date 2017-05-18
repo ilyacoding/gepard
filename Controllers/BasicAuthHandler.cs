@@ -16,22 +16,23 @@ namespace Gepard.Controllers
 
         public IHttpAction Handle(HttpRequest request)
         {
-            if (request.VirtualHost.AuthConfigs != null)
+            if (request.VirtualHost.BasicAuthConfigs != null)
             {
-                foreach (var authConfig in request.VirtualHost.AuthConfigs)
+                foreach (var authConfig in request.VirtualHost.BasicAuthConfigs)
                 {
                     if (request.Object.Uri.Url.StartsWith(authConfig.AuthDirectory))
                     {
                         // Need auth
-                        var authString = "Basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(authConfig.UserName + ":" + authConfig.Password));
-                        if (request.Object.Authorization == authString)
+                        var authValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(authConfig.UserName + ":" + authConfig.Password));
+
+                        if (request.Object.Authorization.AuthType == "Basic" && request.Object.Authorization["Value"] == authValue)
                         {
                             return NextHandler != null ? NextHandler.Handle(request) : new NotImplemented();
                         }
                         else
                         {
                             var httpHeaders = new HttpHeaders();
-                            httpHeaders.Add("WWW-Authenticate", "Basic realm=\"" + authConfig.AuthName + "\"");
+                            httpHeaders.Add("WWW-Authenticate", "Basic realm=\"" + authConfig.Realm + "\"");
                             return new Unauthorized(httpHeaders, null);
                         }
                     }

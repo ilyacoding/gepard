@@ -69,6 +69,7 @@ namespace Gepard
                 {
                     var strRequest = Receive(stream);
                     var response = ControllerHandler.Execute(strRequest, client.Client.LocalEndPoint.ToString());
+                    Console.WriteLine(Encoding.UTF8.GetString(response.ArrayBytes));
                     Send(stream, response.ArrayBytes);
                     
                     if (response.ConnectionAlive) continue;

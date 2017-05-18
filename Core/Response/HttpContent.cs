@@ -9,5 +9,6 @@ namespace Gepard.Core.Response
     public class HttpContent
     {
         public byte[] Data { get; set; }
+        public bool IncludeBody { get; set; }
     }
 }

@@ -30,7 +30,10 @@ namespace Gepard.Configuration.VirtualHost
         [XmlArray("DefaultIndex")]
         public List<IndexFile> DefaultIndex { get; set; }
 
-        [XmlArray("Authentication")]
-        public List<BasicAuthConfig> AuthConfigs { get; set; }
+        [XmlArray("BasicAuthentication")]
+        public List<BasicAuthConfig> BasicAuthConfigs { get; set; }
+
+        [XmlArray("DigestAuthentication")]
+        public List<DigestAuthConfig> DigestAuthConfigs { get; set; }
     }
 }

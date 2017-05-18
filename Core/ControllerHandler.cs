@@ -45,7 +45,7 @@ namespace Gepard.Core
             httpResponse.Headers.Add("Server", HttpServer.HttpServerName);
             httpResponse.Headers.Add("Date", new HttpDate(DateTime.Now).ToString());
 
-            if (!httpResponse.IsSuccessStatus)
+            if (httpResponse.Content.IncludeBody && httpResponse.Content.Data == null)
             {
                 httpResponse.Content.Data = GetErrorBody(httpResponse.HttpStatusCode);
             }

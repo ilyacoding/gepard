@@ -11,13 +11,13 @@ namespace Gepard.Core.HttpAction
     {
         public HttpResponse HttpResponse { get; set; }
 
-        public Unauthorized(HttpHeaders httpHeaders, byte[] dataBytes)
+        public Unauthorized(HttpHeaders httpHeaders, byte[] dataBytes, bool includeBody = true)
         {
             HttpResponse = new HttpResponse
             {
                 HttpStatusCode = 401,
                 IsSuccessStatus = false,
-                Content = new HttpContent() { Data = dataBytes },
+                Content = new HttpContent() { Data = dataBytes, IncludeBody = includeBody },
                 Headers = httpHeaders
             };
         }

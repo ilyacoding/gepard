@@ -15,27 +15,29 @@ using Gepard.Core.Response;
 
 namespace Gepard.Controllers
 {
-    public class GetMethodHandler : IRequestHandler
+    public class GetHeadMethodHandler : IRequestHandler
     {
         private string DirectoryRoot { get; set; }
         public IRequestHandler NextHandler { get; set; }
 
-        public GetMethodHandler(string directoryRoot)
+        public GetHeadMethodHandler(string directoryRoot)
         {
             DirectoryRoot = directoryRoot;
         }
 
         public IHttpAction Handle(HttpRequest request)
         {
-            if (request.Object.Method == "GET")
+            if (request.Object.Method == "GET" || request.Object.Method == "HEAD")
             {
+                var includeBody = request.Object.Method != "HEAD";
+
                 var httpHeaders = new HttpHeaders();
 
                 var fileSystem = new FileSystem(Path.Combine(DirectoryRoot, "www", request.VirtualHost.Directory, request.Object.Uri.Url), request.VirtualHost.DefaultIndex);
 
                 var fileDescription = fileSystem.GetFile();
 
-                if (fileDescription == null) return new NotFound();
+                if (fileDescription == null) return new NotFound(includeBody);
 
                 var dateChange = new HttpDate(fileDescription.GetLastModified());
 
@@ -51,11 +53,11 @@ namespace Gepard.Controllers
                         if (bytesArray.Length > 0)
                         {
                             httpHeaders.Add("Content-Range", request.Object.HttpRange.ToString());
-                            return new PartialContent(httpHeaders, bytesArray);
+                            return new PartialContent(httpHeaders, bytesArray, includeBody);
                         }
                         else
                         {
-                            return new NotSatisfiable();
+                            return new NotSatisfiable(includeBody);
                         }
                     }
                     catch (Exception)
@@ -71,7 +73,7 @@ namespace Gepard.Controllers
                         var requestDate = DateTime.Parse(request.Object["If-Modified-Since"].Trim());
                         if (requestDate >= dateChange.DateTime)
                         {
-                            return new NotModified(httpHeaders);
+                            return new NotModified(httpHeaders, includeBody);
                         }
                     }
                     catch
@@ -80,7 +82,7 @@ namespace Gepard.Controllers
                     }
                 }
 
-                return new Ok(httpHeaders, fileDescription.GetAllBytes());
+                return new Ok(httpHeaders, fileDescription.GetAllBytes(), includeBody);
             }
             return NextHandler != null ? NextHandler.Handle(request) : new NotImplemented();
         }

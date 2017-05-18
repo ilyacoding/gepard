@@ -8,8 +8,8 @@ using System.Xml.Serialization;
 namespace Gepard.Configuration.Auth
 {
     [Serializable]
-    public class BasicAuthConfig
-    {
+    public class DigestAuthConfig
+    {   
         [XmlElement("Directory")]
         public string AuthDirectory { get; set; }
 
@@ -21,5 +21,5 @@ namespace Gepard.Configuration.Auth
 
         [XmlElement("Password")]
         public string Password { get; set; }
-    }
+    }   
 }
