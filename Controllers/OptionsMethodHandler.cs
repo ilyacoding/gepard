@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Gepard.Core;
-using Gepard.Core.FileHandling;
+﻿using Gepard.Core;
 using Gepard.Core.HttpAction;
-using Gepard.Core.Request;
-using Gepard.Core.Response;
+using Gepard.Core.HttpFields;
+using Gepard.Core.Main;
+using Gepard.Core.Requests;
 
 namespace Gepard.Controllers
 {
@@ -16,13 +10,13 @@ namespace Gepard.Controllers
     {
         public IRequestHandler NextHandler { get; set; }
 
-        public IHttpAction Handle(HttpRequest request)
+        public IHttpAction Handle(Request request)
         {
             if (request.Object.Method == "OPTIONS")
             {
                 var httpHeaders = new HttpHeaders();
 
-                httpHeaders.Add("Allow", "OPTIONS, GET, HEAD");
+                httpHeaders.Add("Allow", "OPTIONS, GET, HEAD, POST");
 
                 return new Ok(httpHeaders, null, false);
             }

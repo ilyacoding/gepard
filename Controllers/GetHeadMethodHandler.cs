@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.UI;
-using Gepard.Configuration.Server;
 using Gepard.Core;
 using Gepard.Core.FileHandling;
 using Gepard.Core.HttpAction;
-using Gepard.Core.Request;
-using Gepard.Core.Response;
+using Gepard.Core.HttpFields;
+using Gepard.Core.HttpHelpers;
+using Gepard.Core.Main;
+using Gepard.Core.Requests;
 
 namespace Gepard.Controllers
 {
@@ -25,7 +20,7 @@ namespace Gepard.Controllers
             DirectoryRoot = directoryRoot;
         }
 
-        public IHttpAction Handle(HttpRequest request)
+        public IHttpAction Handle(Request request)
         {
             if (request.Object.Method == "GET" || request.Object.Method == "HEAD")
             {

@@ -4,18 +4,17 @@ using Gepard.Core.Responses;
 
 namespace Gepard.Core.HttpAction
 {
-    public class Unauthorized : IHttpAction
+    public class BadRequest : IHttpAction
     {
         public HttpResponse HttpResponse { get; set; }
 
-        public Unauthorized(HttpHeaders httpHeaders, byte[] dataBytes, bool includeBody = true)
+        public BadRequest(bool includeBody = true)
         {
             HttpResponse = new HttpResponse
             {
-                HttpStatusCode = 401,
+                HttpStatusCode = 400,
                 IsSuccessStatus = false,
-                Content = new HttpContent() { Data = dataBytes, IncludeBody = includeBody },
-                Headers = httpHeaders
+                Content = new HttpContent() { Data = null, IncludeBody = includeBody },
             };
         }
     }

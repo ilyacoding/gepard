@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Gepard.Core;
 using Gepard.Core.HttpAction;
-using Gepard.Core.Request;
-using Gepard.Core.Response;
+using Gepard.Core.HttpFields;
+using Gepard.Core.Main;
+using Gepard.Core.Requests;
 
 namespace Gepard.Controllers
 {
@@ -14,7 +12,7 @@ namespace Gepard.Controllers
     {
         public IRequestHandler NextHandler { get; set; }
 
-        public IHttpAction Handle(HttpRequest request)
+        public IHttpAction Handle(Request request)
         {
             if (request.VirtualHost.BasicAuthConfigs != null)
             {
@@ -25,7 +23,8 @@ namespace Gepard.Controllers
                         // Need auth
                         var authValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(authConfig.UserName + ":" + authConfig.Password));
 
-                        if (request.Object.Authorization.AuthType == "Basic" && request.Object.Authorization["Value"] == authValue)
+                        if (request.Object.Authorization.AuthType == "Basic" 
+                            && request.Object.Authorization["Value"] == authValue)
                         {
                             return NextHandler != null ? NextHandler.Handle(request) : new NotImplemented();
                         }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace Gepard.Configuration.VirtualHost
@@ -13,11 +9,5 @@ namespace Gepard.Configuration.VirtualHost
     {
         [XmlElement("FileName")]
         public string FileName { get; set; }
-
- //       public IndexFile(string fileName, int filePriority)
- //       {
- //           FileName = fileName;
- //           FilePriority = filePriority;
- //       }
     }
 }

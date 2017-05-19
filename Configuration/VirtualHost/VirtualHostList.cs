@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace Gepard.Configuration.VirtualHost
@@ -23,11 +20,6 @@ namespace Gepard.Configuration.VirtualHost
             DefaultVirtualHost = new VirtualHost();
         }
 
-//        public bool HasVirtualHost(string host)
-//        {
-//            return VirtualHosts.Any(element => element.ServerName == host || element.ServerAlias == host);
-//        }
-
         public VirtualHost GetVirtualHost(string host)
         {
             foreach (var virtualHost in VirtualHosts)
@@ -38,7 +30,6 @@ namespace Gepard.Configuration.VirtualHost
                 }
             }
             return DefaultVirtualHost;
-//            return VirtualHosts.Find(virtualhost => virtualhost.ServerName == host || virtualhost.ServerAlias == host);
         }
     }
 }

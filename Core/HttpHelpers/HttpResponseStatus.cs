@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Gepard.Core.Response
+namespace Gepard.Core.HttpHelpers
 {
     public static class HttpResponseStatus
     {

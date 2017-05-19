@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Gepard.Core.Response;
+﻿using Gepard.Core.HttpFields;
+using Gepard.Core.Main;
+using Gepard.Core.Responses;
 
 namespace Gepard.Core.HttpAction
 {

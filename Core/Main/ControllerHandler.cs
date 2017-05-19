@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net;
 using System.Text;
-using System.Threading.Tasks;
-using Gepard.Configuration.Server;
 using Gepard.Configuration.VirtualHost;
+using Gepard.Core.HttpAction;
+using Gepard.Core.HttpFields;
+using Gepard.Core.HttpHelpers;
 using Gepard.Core.Logs;
-using Gepard.Core.Request;
-using Gepard.Core.Response;
+using Gepard.Core.Requests;
+using Gepard.Core.Responses;
 
-namespace Gepard.Core
+namespace Gepard.Core.Main
 {
     public class ControllerHandler
     {
@@ -31,14 +29,27 @@ namespace Gepard.Core
 
         public ByteResponse Execute(string str, string clientIp)
         {
-            var requestObject = new Request.Request(str);
-            var virtualHost = VirtualHostList.GetVirtualHost(requestObject.Host);
+            HttpRequest requestObject = null;
+            HttpResponse httpResponse = null;
 
-            var accessLogHandler = new AccessLogHandler(Path.Combine(DirectoryRoot, "logs", virtualHost.AccessLog), clientIp, requestObject.UserAgent);
-            
-            var request = new HttpRequest(requestObject, virtualHost);
-            
-            var httpResponse = ChainControllerHandler.Execute(request).HttpResponse;
+            try
+            {
+                requestObject = new HttpRequest(str);
+            }
+            catch
+            {
+                httpResponse = new NotFound().HttpResponse;
+            }
+
+            var virtualHost = VirtualHostList.GetVirtualHost(requestObject != null ? requestObject.Host : "");
+            var request = new Request(requestObject, virtualHost);
+
+            var accessLogHandler = new AccessLogHandler(Path.Combine(DirectoryRoot, "logs", virtualHost.AccessLog), clientIp, requestObject != null ? requestObject.UserAgent : "");
+
+            if (httpResponse == null)
+            {
+                httpResponse = ChainControllerHandler.Execute(request).HttpResponse;
+            }
 
             accessLogHandler.WriteInfo(request.Object.Method + " /" + request.Object.Uri.Url + " " + HttpResponseStatus.Get(httpResponse.HttpStatusCode));
 

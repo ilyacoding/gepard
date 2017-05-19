@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using Gepard.Configuration.VirtualHost;
-using Gepard.Core.Response;
+using Gepard.Core.HttpFields;
 
-namespace Gepard.Core.Request
+namespace Gepard.Core.Requests
 {
-    public class Request
+    public class HttpRequest
     {
         public string Method { get; set; }
-        public Uri Uri { get; set; }
+        public HttpUri Uri { get; set; }
         public string HttpVersion { get; set; }
 
         public string Host { get; set; }
@@ -24,7 +22,7 @@ namespace Gepard.Core.Request
 
         public string Body { get; set; }
 
-        public Request(string data)
+        public HttpRequest(string data)
         {
             var parts = data.Split(new[] { "\r\n\r\n" }, StringSplitOptions.None);
             if (parts.Length < 1) throw new Exception("Invalid data");
@@ -38,7 +36,7 @@ namespace Gepard.Core.Request
 
             if (startingLine.Length != 3) throw new Exception();
             Method = startingLine[0];
-            Uri = new Uri(startingLine[1]);
+            Uri = new HttpUri(startingLine[1]);
 
             Fields = headers.Select(p => p.Split(new[] { ':' }, 2)).Where(f => f.Count() > 1).ToDictionary(f => f[0].Trim().ToLower(), f => f[1].Trim());
 

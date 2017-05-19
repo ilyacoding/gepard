@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using Gepard.Core;
 using Gepard.Core.HttpAction;
-using Gepard.Core.Request;
-using Gepard.Core.Response;
+using Gepard.Core.HttpFields;
+using Gepard.Core.Main;
+using Gepard.Core.Requests;
 
 namespace Gepard.Controllers
 {
@@ -14,7 +11,7 @@ namespace Gepard.Controllers
     {
         public IRequestHandler NextHandler { get; set; }
 
-        public IHttpAction Handle(HttpRequest request)
+        public IHttpAction Handle(Request request)
         {
             if (request.Object.Host.Contains("s3.localhost"))
             {

@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using Gepard.Core;
 using Gepard.Core.HttpAction;
-using Gepard.Core.Request;
-using Gepard.Core.Response;
+using Gepard.Core.HttpFields;
+using Gepard.Core.Main;
+using Gepard.Core.Requests;
 
 namespace Gepard.Controllers
 {
@@ -15,21 +14,19 @@ namespace Gepard.Controllers
     {
         public IRequestHandler NextHandler { get; set; }
 
-        private Random Random { get; set; }
-        private string Nonce { get; set; }
+        private Random Random { get; }
+        private string Nonce { get; }
 
         public DigestAuthHandler()
         {
             Random = new Random(DateTime.Now.Millisecond);
             Nonce = RandomString(DateTime.Now.Second);
-            //Nonce = "438fyh43q987fh";
         }
 
-        public IHttpAction Handle(HttpRequest request)
+        public IHttpAction Handle(Request request)
         {
             if (request.VirtualHost.DigestAuthConfigs != null)
             {
-                Console.WriteLine(request.VirtualHost.DigestAuthConfigs.Count);
                 foreach (var authConfig in request.VirtualHost.DigestAuthConfigs)
                 {
                     if (request.Object.Uri.Url.StartsWith(authConfig.AuthDirectory))
@@ -41,11 +38,11 @@ namespace Gepard.Controllers
                         var response = Md5($"{ha1}:{Nonce}:{ha2}");
 
                         if (request.Object.Authorization.AuthType == "Digest" 
-                         && request.Object.Authorization["UserName"] == authConfig.UserName 
-                         && request.Object.Authorization["Nonce"] == Nonce 
-                         && request.Object.Authorization["Realm"] == authConfig.Realm
-                         && request.Object.Authorization["Response"] == response
-                         && request.Object.Authorization["Uri"] == "/" + request.Object.Uri.Url)
+                            && request.Object.Authorization["UserName"] == authConfig.UserName 
+                            && request.Object.Authorization["Nonce"] == Nonce 
+                            && request.Object.Authorization["Realm"] == authConfig.Realm
+                            && request.Object.Authorization["Response"] == response
+                            && request.Object.Authorization["Uri"] == "/" + request.Object.Uri.Url)
                         {
                             return NextHandler != null ? NextHandler.Handle(request) : new NotImplemented();
                         }
@@ -60,8 +57,8 @@ namespace Gepard.Controllers
             }
             return NextHandler != null ? NextHandler.Handle(request) : new NotImplemented();
         }
-
-        public string Md5(string input)
+        
+        private static string Md5(string input)
         {
             var md5 = MD5.Create();
             var inputBytes = Encoding.ASCII.GetBytes(input);
@@ -77,7 +74,7 @@ namespace Gepard.Controllers
             return sb.ToString().ToLower();
         }
 
-        public string RandomString(int length)
+        private string RandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(chars, length).Select(s => s[Random.Next(s.Length)]).ToArray()).ToLower();

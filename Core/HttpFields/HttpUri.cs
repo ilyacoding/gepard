@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Gepard.Core.Request
+namespace Gepard.Core.HttpFields
 {
-    public class Uri
+    public class HttpUri
     {
         public string Url { get; set; }
+        public HttpUrlEncoded HttpUrlEncoded { get; set; }
         public Dictionary<string, string> UriDictionary { get; set; }
         
-        public Uri(string uri)
+        public HttpUri(string uri)
         {
             UriDictionary = new Dictionary<string, string>();
             uri = uri.Trim('/', '\\');
@@ -21,8 +22,14 @@ namespace Gepard.Core.Request
 
             if (uriParts.Length != 2) return;
 
-            var parameters = uriParts[1].Split('&');
-            UriDictionary = parameters.Select(element => element.Split('=')).Where(keyValue => keyValue.Length == 2).ToDictionary(keyValue => keyValue[0].Trim(), keyValue => keyValue[1].Trim());
+            try
+            {
+                HttpUrlEncoded = new HttpUrlEncoded(uriParts[1]);
+            }
+            catch
+            {
+                // ignored
+            }
         }
     }
 }

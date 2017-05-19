@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading;
 using Gepard.Configuration.Server;
-using Gepard.Configuration.VirtualHost;
-using Gepard.Controllers;
 using Gepard.Core;
+using Gepard.Core.Main;
 
 namespace Gepard
 {
@@ -19,18 +14,14 @@ namespace Gepard
         public static string HttpServerName { get; set; }
 
         private TcpListener Server { get; }
-        private Task Task { get; set; }
-        private CancellationTokenSource Canceller { get; set; }
-        private bool WasAborted { get; set; }
+        private Task Task { get; }
         private ServerConfig ServerConfig { get; }
-        private VirtualHostList VirtualHostList { get; set; }
-        private ControllerHandler ControllerHandler { get; set; }
+        private ControllerHandler ControllerHandler { get; }
         
-        public HttpServer(ServerConfig serverConfig, VirtualHostList virtualHostList, ControllerHandler controllerHandler)
+        public HttpServer(ServerConfig serverConfig, ControllerHandler controllerHandler)
         {
             HttpServerName = serverConfig.ServerName;
             ServerConfig = serverConfig;
-            VirtualHostList = virtualHostList;
             ControllerHandler = controllerHandler;
 
             Server = new TcpListener(IPAddress.Parse(ServerConfig.Ip), ServerConfig.Port);
@@ -56,6 +47,7 @@ namespace Gepard
                 var client = Server.AcceptTcpClient();
                 Task.Factory.StartNew(() => HandleClient(client));
             }
+            // ReSharper disable once FunctionNeverReturns
         }
        
         private void HandleClient(TcpClient client)

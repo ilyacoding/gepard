@@ -64,38 +64,39 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application.cs" />
-    <Compile Include="ByteResponse.cs" />
+    <Compile Include="Controllers\PostMethodHandler.cs" />
+    <Compile Include="Core\HttpAction\BadRequest.cs" />
+    <Compile Include="Core\HttpFields\HttpUrlEncoded.cs" />
+    <Compile Include="Core\Responses\ByteResponse.cs" />
     <Compile Include="Configuration\Auth\DigestAuthConfig.cs" />
     <Compile Include="Configuration\VirtualHost\IndexFile.cs" />
     <Compile Include="Controllers\BasicAuthHandler.cs" />
     <Compile Include="Controllers\DigestAuthHandler.cs" />
     <Compile Include="Controllers\GetHeadMethodHandler.cs" />
     <Compile Include="Controllers\OptionsMethodHandler.cs" />
-    <Compile Include="Controllers\PostMethodHandler.cs" />
     <Compile Include="Controllers\WebSiteOne.cs" />
     <Compile Include="Core\FileHandling\FileDescription.cs" />
     <Compile Include="Core\HttpAction\NotSatisfiable.cs" />
     <Compile Include="Core\HttpAction\PartialContent.cs" />
     <Compile Include="Core\HttpAction\Unauthorized.cs" />
-    <Compile Include="Core\IRequestHandler.cs" />
-    <Compile Include="Controllers\PartGetMethodHandler.cs" />
-    <Compile Include="Core\ChainControllerHandler.cs" />
-    <Compile Include="Core\HttpAction\IHttpAction.cs" />
+    <Compile Include="Core\Main\IRequestHandler.cs" />
+    <Compile Include="Core\Main\ChainControllerHandler.cs" />
+    <Compile Include="Core\Main\IHttpAction.cs" />
     <Compile Include="Core\HttpAction\NotFound.cs" />
     <Compile Include="Core\HttpAction\NotImplemented.cs" />
     <Compile Include="Core\HttpAction\NotModified.cs" />
     <Compile Include="Core\HttpAction\Ok.cs" />
     <Compile Include="Core\Logs\AccessLogHandler.cs" />
-    <Compile Include="Core\Logs\ILogHandler.cs" />
-    <Compile Include="Core\Request\HttpAuthorization.cs" />
-    <Compile Include="Core\Request\HttpRequest.cs" />
-    <Compile Include="Core\Response\HttpContent.cs" />
-    <Compile Include="Core\Response\HttpDate.cs" />
-    <Compile Include="Core\Response\HttpHeaders.cs" />
-    <Compile Include="Core\Response\HttpRange.cs" />
-    <Compile Include="Core\Response\HttpResponse.cs" />
-    <Compile Include="Core\Response\HttpVersion.cs" />
-    <Compile Include="Core\ErrorHandler.cs" />
+    <Compile Include="Core\Main\ILogHandler.cs" />
+    <Compile Include="Core\HttpFields\HttpAuthorization.cs" />
+    <Compile Include="Core\Requests\Request.cs" />
+    <Compile Include="Core\HttpFields\HttpContent.cs" />
+    <Compile Include="Core\HttpFields\HttpDate.cs" />
+    <Compile Include="Core\HttpFields\HttpHeaders.cs" />
+    <Compile Include="Core\HttpFields\HttpRange.cs" />
+    <Compile Include="Core\Responses\HttpResponse.cs" />
+    <Compile Include="Core\HttpFields\HttpVersion.cs" />
+    <Compile Include="Core\Main\ErrorHandler.cs" />
     <Compile Include="Configuration\Auth\BasicAuthConfig.cs" />
     <Compile Include="Configuration\Server\ServerConfig.cs" />
     <Compile Include="Configuration\Server\ServerConfigHandler.cs" />
@@ -103,9 +104,9 @@
     <Compile Include="Configuration\VirtualHost\VirtualHostConfigHandler.cs" />
     <Compile Include="Configuration\VirtualHost\VirtualHostConfigSerializer.cs" />
     <Compile Include="Configuration\VirtualHost\VirtualHostList.cs" />
-    <Compile Include="Core\ControllerHandler.cs" />
+    <Compile Include="Core\Main\ControllerHandler.cs" />
     <Compile Include="Core\FileHandling\FileSystem.cs" />
-    <Compile Include="Core\Response\HttpMimeType.cs" />
+    <Compile Include="Core\HttpHelpers\HttpMimeType.cs" />
     <Compile Include="GepardService.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -120,11 +121,11 @@
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Core\Request\Request.cs" />
-    <Compile Include="Core\Response\HttpResponseStatus.cs" />
+    <Compile Include="Core\Requests\HttpRequest.cs" />
+    <Compile Include="Core\HttpHelpers\HttpResponseStatus.cs" />
     <Compile Include="HttpServer.cs" />
     <Compile Include="Configuration\VirtualHost\VirtualHost.cs" />
-    <Compile Include="Core\Request\Uri.cs" />
+    <Compile Include="Core\HttpFields\HttpUri.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -148,6 +149,7 @@
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

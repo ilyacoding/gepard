@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Gepard.Configuration;
-using Gepard.Configuration.Auth;
 using Gepard.Configuration.Server;
 using Gepard.Configuration.VirtualHost;
 using Gepard.Controllers;
 using Gepard.Core;
+using Gepard.Core.Main;
 
 namespace Gepard
 {
@@ -29,8 +24,7 @@ namespace Gepard
         
         public Application(string configDirectory, ServerConfigSerializer serverConfigSerializer, VirtualHostConfigSerializer virtualHostConfigSerializer)
         {
-            //ExecutionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            ExecutionPath = "D:\\Crypto\\GitHub\\gepard\\bin\\Debug\\";
+            ExecutionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             if (ExecutionPath == null) throw new ApplicationException("Can' get execution path.");
 
             try
@@ -62,13 +56,12 @@ namespace Gepard
             chainControllerHandler.Reg(new BasicAuthHandler());
 
             chainControllerHandler.Reg(new OptionsMethodHandler());
-            chainControllerHandler.Reg(new WebSiteOne());
-            //chainControllerHandler.Reg(new PartGetMethodHandler());
+            chainControllerHandler.Reg(new PostMethodHandler());
             chainControllerHandler.Reg(new GetHeadMethodHandler(ServerConfig.DirectoryRoot));
             
             var controllerHandler = new ControllerHandler(VirtualHostList, chainControllerHandler, ServerConfig.ServerName, ServerConfig.DirectoryRoot);
 
-            HttpServer = new HttpServer(ServerConfig, VirtualHostList, controllerHandler);
+            HttpServer = new HttpServer(ServerConfig, controllerHandler);
         }
 
         public void Start()
@@ -84,7 +77,7 @@ namespace Gepard
             }
             catch
             {
-                
+                // ignored
             }
         }
     }

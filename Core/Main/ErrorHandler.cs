@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Gepard.Core.Logs;
 
-namespace Gepard.Core
+namespace Gepard.Core.Main
 {
     public class ErrorHandler
     {
