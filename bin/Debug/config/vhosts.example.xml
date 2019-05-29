@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-16"?>
+<VirtualHostsConfiguration>
+  <VirtualHosts>
+    <VirtualHost>
+      <ServerName>mylocal.host</ServerName>
+      <ServerAlias>www.mylocal.host</ServerAlias>
+      <Directory>mylocal.host</Directory>
+      <ErrorLog>mylocal.host.error.log</ErrorLog>
+      <AccessLog>mylocal.host.custom.log</AccessLog>
+      <DefaultIndex>
+        <IndexFile>
+          <FileName>index.html</FileName>
+        </IndexFile>
+        <IndexFile>
+          <FileName>index.php</FileName>
+        </IndexFile>
+      </DefaultIndex>
+    </VirtualHost>
+  </VirtualHosts>
+  <DefaultVirtualHost>
+    <ServerName>127.0.0.1</ServerName>
+    <ServerAlias>localhost</ServerAlias>
+    <Directory>localhost</Directory>
+    <ErrorLog>localhost.error.log</ErrorLog>
+    <AccessLog>localhost.custom.log</AccessLog>
+      <DefaultIndex>
+        <IndexFile>
+          <FileName>index.html</FileName>
+        </IndexFile>
+      </DefaultIndex>
+  </DefaultVirtualHost>
+</VirtualHostsConfiguration>
